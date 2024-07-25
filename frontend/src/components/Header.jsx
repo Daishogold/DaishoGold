@@ -63,11 +63,11 @@ const Header = () => {
     };
 
     return (
-        <header className="h-17 shadow-md bg-white fixed w-full z-40">
+        <header className="h-18 shadow-md bg-white fixed w-full z-40">
             <div className="h-full container mx-auto flex items-center px-4 justify-between">
                 <div>
                     <Link to="/">
-                        <img src={Logo} alt="logo" style={{ width: '95px', height: '80px' }} />
+                        <img src={Logo} alt="logo" style={{ width: '90px', height: '70px' }} />
                     </Link>
                 </div>
 
