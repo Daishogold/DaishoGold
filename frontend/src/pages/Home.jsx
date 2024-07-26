@@ -9,17 +9,25 @@ const Home = () => {
             <CategoryList />
             <BannerProduct />
 
-            <HorizontalCardProduct category={"airpodes"} heading={"Top's Airpodes"} />
-            <HorizontalCardProduct category={"watches"} heading={"Popular's Watches"} />
+            <HorizontalCardProduct category={"Air Filter"} heading={"Best Quality Air Filter"} />
+            <HorizontalCardProduct category={"Brake Shoe"} heading={"Top Brake Shoe"} />
+            <HorizontalCardProduct category={"Cam Gear Set"} heading={"Cam Gear Set"} />
+            <HorizontalCardProduct category={"Cam Sprocket"} heading={"Cam Sprocket"} />
+            <HorizontalCardProduct category={"Carborator"} heading={"Carborator"} />
+            <HorizontalCardProduct category={"Chain Lock"} heading={"Chain Lock"} />
+            <HorizontalCardProduct category={"Chimta Bush"} heading={"Chimta Bush"} />
+            <HorizontalCardProduct category={"Clutch"} heading={"Clutch"} />
 
-            <VerticalCardProduct category={"mobiles"} heading={"Mobiles"} />
-            <VerticalCardProduct category={"Mouse"} heading={"Mouse"} />
-            <VerticalCardProduct category={"televisions"} heading={"Televisions"} />
-            <VerticalCardProduct category={"camera"} heading={"Camera & Photography"} />
-            <VerticalCardProduct category={"earphones"} heading={"Wired Earphones"} />
-            <VerticalCardProduct category={"speakers"} heading={"Bluetooth Speakers"} />
-            <VerticalCardProduct category={"refrigerator"} heading={"Refrigerator"} />
-            <VerticalCardProduct category={"trimmers"} heading={"Trimmers"} />
+            <VerticalCardProduct category={"Colls"} heading={"Colls"} />
+            <VerticalCardProduct category={"Gears"} heading={"Gears"} />
+            <VerticalCardProduct category={"Handle"} heading={"Handle"} />
+            <VerticalCardProduct category={"Needle Jet Set"} heading={"Needle Jet Set"} />
+            <VerticalCardProduct category={"O Rings"} heading={"O Rings"} />
+            <VerticalCardProduct category={"Pressure Plates"} heading={"Pressure Plates"} />
+            <VerticalCardProduct category={"Rocker Pin"} heading={"Rocker Pin"} />
+            <VerticalCardProduct category={"Seals"} heading={"Seals"} />
+            <VerticalCardProduct category={"Spark Plug"} heading={"Spark Plug"} />
+            <VerticalCardProduct category={"Tappet Screw"} heading={"Tappet Screw"} />
         </div>
     )
 }
