@@ -12,6 +12,7 @@ import ProductDetails from '../pages/ProductDetails';
 import Cart from '../pages/Cart';
 import SearchProduct from '../pages/SearchProduct';
 import PageNotFound from '../pages/PageNotFound';
+import Dashboard from '../pages/Dashboard';
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
                 path: 'admin-panel',
                 element: <AdminPanel />,
                 children: [
+                    {
+                        path: "dashboard",
+                        element: <Dashboard />
+                    },
                     {
                         path: "all-users",
                         element: <AllUsers />
