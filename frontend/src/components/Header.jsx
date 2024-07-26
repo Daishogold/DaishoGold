@@ -2,10 +2,11 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
-import { FaRegCircleUser } from "react-icons/fa6";
+import { FaRegCircleUser } from 'react-icons/fa6';
 import { GrSearch, GrMenu, GrDown } from 'react-icons/gr';
 import { toast } from 'react-toastify';
 import { setUserDetails } from '../store/userSlice';
+import { MdAttachMoney } from 'react-icons/md'; // Currency exchange icon
 import Logo from '../assets/logo.png';
 import SummaryApi from '../common';
 import ROLE from '../common/role';
@@ -79,6 +80,20 @@ const Header = () => {
 
                 {/* Hamburger Menu for Mobile */}
                 <div className="lg:hidden flex items-center space-x-4">
+                    <div className="flex-1">
+                        <div className="relative mx-auto mr-10">
+                            {!isAdminPanel && (
+                                <input
+                                    type="text"
+                                    placeholder="Search product here..."
+                                    className="w-full outline-none px-2 py-1 border rounded-full"
+                                    onChange={handleSearch}
+                                    value={search}
+                                />
+                            )}
+                        </div>
+                    </div>
+
                     <button
                         className="text-2xl"
                         onClick={() => setHamburgerMenuOpen(prev => !prev)}
@@ -87,40 +102,55 @@ const Header = () => {
                     </button>
 
                     {hamburgerMenuOpen && (
-                        <div className="w-full absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50">
-                            <nav>
-                                <Link to="/" className="block py-2 px-4 hover:bg-gray-100">Home</Link>
-                                <div className="relative">
-                                    <button
-                                        className="flex items-center justify-between w-full py-2 px-4 hover:bg-gray-100 text-left"
-                                        onClick={() => setProductsDropdownOpen(prev => !prev)}
-                                    >
-                                        Products
-                                        <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
-                                    </button>
-                                    {productsDropdownOpen && (
-                                        <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
-                                            <Link to="/product/honda-cd-70" className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                            <Link to="/product/honda-gd-110" className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                            <Link to="/product/suzuki-gs-150" className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                            <Link to="/product/yamaha-ybr" className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                            <Link to="/product/honda-cb-150" className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                            <Link to="/product/honda-h125" className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                            <Link to="/product/honda-deluxe-125" className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                            <Link to="/product/jialing-jh-70" className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                            <Link to="/product/honda-cg-125" className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                        <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
+                            <div className="flex flex-col items-center">
+                                <nav className="w-full">
+                                    <Link to="/" className="block py-2 px-4 hover:bg-gray-100">Home</Link>
+                                    <div className="relative">
+                                        <button
+                                            className="flex items-center justify-between w-full py-2 px-4 hover:bg-gray-100 text-left"
+                                            onClick={() => setProductsDropdownOpen(prev => !prev)}
+                                        >
+                                            Products
+                                            <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        {productsDropdownOpen && (
+                                            <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
+                                                <Link to="/product/honda-cd-70" className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                                <Link to="/product/honda-gd-110" className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                                <Link to="/product/suzuki-gs-150" className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                                <Link to="/product/yamaha-ybr" className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                                <Link to="/product/honda-cb-150" className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                                <Link to="/product/honda-h125" className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                                <Link to="/product/honda-deluxe-125" className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                                <Link to="/product/jialing-jh-70" className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                                <Link to="/product/honda-cg-125" className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <Link to="/currency-exchange" className="block py-2 px-4 hover:bg-gray-100">Currency Exchange</Link>
+                                    <Link to="/about" className="block py-2 px-4 hover:bg-gray-100">About</Link>
+                                </nav>
+                                {user?._id && !productsDropdownOpen && (
+                                    <Link to="/cart" className="block py-2 px-4 hover:bg-gray-100 relative mt-4">
+                                        <span className="flex items-center justify-center"><FaShoppingCart /></span>
+                                        <div className="bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3">
+                                            <p className="text-sm">{context?.cartProductCount}</p>
                                         </div>
-                                    )}
-                                </div>
-                                <Link to="/currency-exchange" className="block py-2 px-4 hover:bg-gray-100">Currency Exchange</Link>
-                                <Link to="/about" className="block py-2 px-4 hover:bg-gray-100">About</Link>
-                            </nav>
+                                    </Link>
+                                )}
+                                {user?._id ? (
+                                    <button onClick={handleLogout} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Logout</button>
+                                ) : (
+                                    <Link to="/login" className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Login</Link>
+                                )}
+                            </div>
                         </div>
                     )}
                 </div>
 
                 {/* Desktop Menu */}
-                <div className="hidden lg:flex items-center space-x-4">
+                <div className="hidden lg:flex items-center space-x-4 mx-auto">
                     <Link to="/" className="hover:text-red-600">Home</Link>
                     <div className="relative">
                         <button
@@ -131,7 +161,7 @@ const Header = () => {
                             <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                         </button>
                         {productsDropdownOpen && (
-                            <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[150px]">
+                            <div className="w-[170px] absolute left-0 top-full bg-white shadow-lg rounded mt-1">
                                 <Link to="/product/honda-cd-70" className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
                                 <Link to="/product/honda-gd-110" className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
                                 <Link to="/product/suzuki-gs-150" className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
@@ -144,22 +174,19 @@ const Header = () => {
                             </div>
                         )}
                     </div>
-                    <Link to="/currency-exchange" className="hover:text-red-600">Currency Exchange</Link>
                     <Link to="/about" className="hover:text-red-600">About</Link>
                 </div>
 
                 {/* Search Bar */}
                 {!isAdminPanel && (
-                    <div className="flex items-center">
+                    <div className="hidden lg:flex items-center mx-auto">
                         <div className="relative">
                             <input
                                 type="text"
                                 placeholder="Search product here..."
-                                className={`transition-all ease-in-out duration-300 ${searchExpanded ? 'w-64' : 'w-24'} outline-none px-2 py-1 border rounded-full`}
+                                className="w-80 outline-none px-2 py-1 border rounded-full"
                                 onChange={handleSearch}
                                 value={search}
-                                onFocus={() => setSearchExpanded(true)}
-                                onBlur={() => setSearchExpanded(false)}
                             />
                             <button
                                 className="absolute inset-y-0 right-0 flex items-center pr-2"
@@ -171,7 +198,7 @@ const Header = () => {
                     </div>
                 )}
 
-                <div className='flex items-center gap-7'>
+                <div className="hidden lg:flex items-center gap-4 ml-4">
                     <div className='relative flex justify-center'>
                         {user?._id && (
                             <div className='text-3xl cursor-pointer relative flex justify-center' onClick={() => setMenuDisplay(prev => !prev)}>
@@ -203,6 +230,8 @@ const Header = () => {
                             </div>
                         </Link>
                     )}
+
+                    <Link to="/currency-exchange" className="text-3xl border border-gray-500 rounded-full"><MdAttachMoney /></Link>
 
                     <div>
                         {user?._id ? (
