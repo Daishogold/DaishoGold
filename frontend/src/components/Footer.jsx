@@ -21,7 +21,7 @@ const Footer = () => {
                         <p className="font-bold text-lg mb-2">Quick Links</p>
                         <ul>
                             <li><a href="/about" className="hover:text-red-400">About Us</a></li>
-                            <li><a href="/faq" className="hover:text-red-400">FAQ</a></li>
+                            <li><a href="/frequently-asked-questions" className="hover:text-red-400">FAQ</a></li>
                             <li><a href="/contact" className="hover:text-red-400">Contact Us</a></li>
                             <li><a href="/returns" className="hover:text-red-400">Returns</a></li>
                             <li><a href="/shipping" className="hover:text-red-400">Shipping Info</a></li>

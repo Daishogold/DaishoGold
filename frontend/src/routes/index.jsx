@@ -14,6 +14,8 @@ import SearchProduct from '../pages/SearchProduct';
 import PageNotFound from '../pages/PageNotFound';
 import Dashboard from '../pages/Dashboard';
 import About from '../pages/About';
+import FAQ from '../pages/FAQ';
+import Contact from '../pages/Contact';
 
 const router = createBrowserRouter([
     {
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
             {
                 path: 'about',
                 element: <About />
+            },
+            {
+                path: 'frequently-asked-questions',
+                element: <FAQ />
+            },
+            {
+                path: 'contact',
+                element: <Contact />
             },
             {
                 path: 'admin-panel',
