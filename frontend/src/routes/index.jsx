@@ -13,6 +13,7 @@ import Cart from '../pages/Cart';
 import SearchProduct from '../pages/SearchProduct';
 import PageNotFound from '../pages/PageNotFound';
 import Dashboard from '../pages/Dashboard';
+import About from '../pages/About';
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: 'search',
                 element: <SearchProduct />
+            },
+            {
+                path: 'about',
+                element: <About />
             },
             {
                 path: 'admin-panel',

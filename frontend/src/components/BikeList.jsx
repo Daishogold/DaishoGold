@@ -26,7 +26,7 @@ const BikeList = () => {
         <div className="container mx-auto p-4">
             <div className="flex items-center gap-4 justify-between overflow-scroll scrollbar-none">
                 {products.map((bike) => (
-                    <Link to={"/product-category?category=" + products?.category} key={bike.id} className="cursor-pointer">
+                    <Link to={"/product-category?category=Bearings"} key={bike.id} className="cursor-pointer">
                         <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden p-4 bg-slate-200 flex items-center justify-center">
                             <img
                                 src={bike.image}

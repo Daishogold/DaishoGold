@@ -116,15 +116,15 @@ const Header = () => {
                                         </button>
                                         {productsDropdownOpen && (
                                             <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
-                                                <Link to="/product/honda-cd-70" className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                                <Link to="/product/honda-gd-110" className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                                <Link to="/product/suzuki-gs-150" className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                                <Link to="/product/yamaha-ybr" className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                                <Link to="/product/honda-cb-150" className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                                <Link to="/product/honda-h125" className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                                <Link to="/product/honda-deluxe-125" className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                                <Link to="/product/jialing-jh-70" className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                                <Link to="/product/honda-cg-125" className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                                             </div>
                                         )}
                                     </div>
@@ -162,15 +162,15 @@ const Header = () => {
                         </button>
                         {productsDropdownOpen && (
                             <div className="w-[170px] absolute left-0 top-full bg-white shadow-lg rounded mt-1">
-                                <Link to="/product/honda-cd-70" className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                <Link to="/product/honda-gd-110" className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                <Link to="/product/suzuki-gs-150" className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                <Link to="/product/yamaha-ybr" className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                <Link to="/product/honda-cb-150" className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                <Link to="/product/honda-h125" className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                <Link to="/product/honda-deluxe-125" className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                <Link to="/product/jialing-jh-70" className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                <Link to="/product/honda-cg-125" className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                             </div>
                         )}
                     </div>
