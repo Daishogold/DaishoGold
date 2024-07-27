@@ -1,15 +1,37 @@
-import { useState } from 'react'
-import { MdModeEditOutline } from "react-icons/md";
+import { useState } from 'react';
+import { MdModeEditOutline, MdDeleteOutline } from "react-icons/md";
 import AdminEditProduct from './AdminEditProduct';
 import PropTypes from 'prop-types';
 import displayPKRCurrency from '../helpers/displayCurrency';
+import SummaryApi from '../common';
+import { toast } from 'react-toastify';
 
+const AdminProductCard = ({ data, fetchdata }) => {
+    const [editProduct, setEditProduct] = useState(false);
 
-const AdminProductCard = ({
-    data,
-    fetchdata
-}) => {
-    const [editProduct, setEditProduct] = useState(false)
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`${SummaryApi.deleteProduct.url}/${data._id}`, {
+                method: SummaryApi.deleteProduct.method,
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const responseData = await response.json();
+
+            if (responseData.success) {
+                toast.success(responseData.message);
+                fetchdata();
+            } else {
+                toast.error(responseData.message);
+            }
+        } catch (error) {
+            console.error('There was an error deleting the product!', error);
+            toast.error('Failed to delete product');
+        }
+    };
 
     return (
         <div className='bg-white p-4 rounded '>
@@ -18,38 +40,31 @@ const AdminProductCard = ({
                     <img src={data?.productImage[0]} className='mx-auto object-fill h-full' />
                 </div>
                 <h1 className='text-ellipsis line-clamp-2'>{data.productName}</h1>
-
                 <div>
-
                     <p className='font-semibold'>
-                        {
-                            displayPKRCurrency(data.sellingPrice)
-                        }
+                        {displayPKRCurrency(data.sellingPrice)}
                     </p>
-
-                    <div className='w-fit ml-auto p-2 bg-green-100 hover:bg-green-600 rounded-full hover:text-white cursor-pointer' onClick={() => setEditProduct(true)}>
-                        <MdModeEditOutline />
+                    <div className="flex space-x-2">
+                        <div className="w-fit p-2 bg-green-100 hover:bg-green-600 rounded-full hover:text-white cursor-pointer" onClick={() => setEditProduct(true)}>
+                            <MdModeEditOutline />
+                        </div>
+                        <div className="w-fit p-2 bg-red-100 hover:bg-red-600 rounded-full hover:text-white cursor-pointer" onClick={handleDelete}>
+                            <MdDeleteOutline />
+                        </div>
                     </div>
-
                 </div>
-
-
             </div>
 
-            {
-                editProduct && (
-                    <AdminEditProduct productData={data} onClose={() => setEditProduct(false)} fetchdata={fetchdata} />
-                )
-            }
-
+            {editProduct && (
+                <AdminEditProduct productData={data} onClose={() => setEditProduct(false)} fetchdata={fetchdata} />
+            )}
         </div>
-    )
-}
-
-
-AdminProductCard.propTypes = {
-    data: PropTypes.string,
-    fetchdata: PropTypes.func
+    );
 };
 
-export default AdminProductCard
+AdminProductCard.propTypes = {
+    data: PropTypes.object.isRequired,
+    fetchdata: PropTypes.func.isRequired
+};
+
+export default AdminProductCard;
