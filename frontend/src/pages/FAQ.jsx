@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { IoMdAdd } from "react-icons/io";
+import { IoClose } from "react-icons/io5";
 
 const faqData = [
     {
@@ -28,11 +30,7 @@ const FAQ = () => {
     const [selectedQuestion, setSelectedQuestion] = useState(null);
 
     const toggleQuestion = (index) => {
-        if (selectedQuestion === index) {
-            setSelectedQuestion(null);
-        } else {
-            setSelectedQuestion(index);
-        }
+        setSelectedQuestion(selectedQuestion === index ? null : index);
     };
 
     return (
@@ -63,6 +61,7 @@ const FAQ = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: index * 0.2 }}
+                        layout
                     >
                         <div
                             className="p-4 cursor-pointer flex justify-between items-center"
@@ -74,17 +73,17 @@ const FAQ = () => {
                                 animate={{ rotate: selectedQuestion === index ? 90 : 0 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                {selectedQuestion === index ? '-' : '+'}
+                                {selectedQuestion === index ? <IoClose size={25} /> : <IoMdAdd size={25} />}
                             </motion.span>
                         </div>
                         <AnimatePresence>
                             {selectedQuestion === index && (
                                 <motion.div
                                     key="content"
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    transition={{ duration: 0.5 }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
                                     className="p-4 border-t border-gray-200"
                                 >
                                     <p className="text-gray-600">{item.answer}</p>
