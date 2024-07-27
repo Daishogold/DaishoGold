@@ -6,7 +6,7 @@ import { FaRegCircleUser } from 'react-icons/fa6';
 import { GrSearch, GrMenu, GrDown } from 'react-icons/gr';
 import { toast } from 'react-toastify';
 import { setUserDetails } from '../store/userSlice';
-import { MdAttachMoney } from 'react-icons/md'; // Currency exchange icon
+import { MdAttachMoney } from 'react-icons/md';
 import Logo from '../assets/logo.png';
 import SummaryApi from '../common';
 import ROLE from '../common/role';
@@ -75,6 +75,16 @@ const Header = () => {
         }
     };
 
+    const handleProductClick = () => {
+        setProductsDropdownOpen(false);
+    };
+
+    const handleMenuClick = () => {
+        setHamburgerMenuOpen(false);
+        setProductsDropdownOpen(false);
+        setCurrencyDropdownOpen(false);
+    };
+
     const isAdminPanel = location.pathname.startsWith('/admin-panel');
 
     return (
@@ -113,7 +123,7 @@ const Header = () => {
                         <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
                             <div className="flex flex-col items-center">
                                 <nav className="w-full">
-                                    <Link to="/" className="block py-2 px-4 hover:bg-gray-100">Home</Link>
+                                    <Link to="/" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Home</Link>
                                     <div className="relative">
                                         <button
                                             className="flex items-center justify-between w-full py-2 px-4 hover:bg-gray-100 text-left"
@@ -124,15 +134,15 @@ const Header = () => {
                                         </button>
                                         {productsDropdownOpen && (
                                             <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                                             </div>
                                         )}
                                     </div>
@@ -150,50 +160,46 @@ const Header = () => {
                                                     <div className="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg">
                                                         <ul className="py-1">
                                                             <li>
-                                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
                                                                     USD
                                                                 </button>
                                                             </li>
                                                             <li>
-                                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
                                                                     PKR
                                                                 </button>
                                                             </li>
                                                             <li>
-                                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
                                                                     INR
                                                                 </button>
                                                             </li>
-                                                            {/* Add more currencies as needed */}
                                                         </ul>
                                                     </div>
                                                 )}
                                             </div>
                                             {!currencyDropdownOpen && user?._id && (
                                                 <div className="relative mt-4 flex items-center justify-center">
-                                                    <Link to="/cart" className="relative" onClick={scrollToTop}>
+                                                    <Link to="/cart" className="relative" onClick={handleMenuClick}>
                                                         <FaShoppingCart size={24} />
                                                         <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
                                                             <p className="text-sm">{context?.cartProductCount}</p>
                                                         </div>
                                                     </Link>
                                                 </div>
-
                                             )}
                                         </>
                                     )}
-                                    <Link to="/about" onClick={scrollToTop} className="block py-2 px-4 hover:bg-gray-100">About</Link>
+                                    <Link to="/about" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">About</Link>
                                 </nav>
                                 {user?._id ? (
-                                    <button onClick={handleLogout} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Logout</button>
+                                    <button onClick={() => { handleLogout(); handleMenuClick(); }} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Logout</button>
                                 ) : (
-                                    <Link to="/login" className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Login</Link>
+                                    <Link to="/login" onClick={handleMenuClick} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Login</Link>
                                 )}
                             </div>
                         </div>
                     )}
-
-
                 </div>
 
                 {/* Desktop Menu */}
@@ -209,15 +215,15 @@ const Header = () => {
                         </button>
                         {productsDropdownOpen && (
                             <div className="w-[170px] absolute left-0 top-full bg-white shadow-lg rounded mt-1">
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                <Link to={`product-category?category=Bearings`} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                             </div>
                         )}
                     </div>
