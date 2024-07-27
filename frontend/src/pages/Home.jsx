@@ -1,30 +1,88 @@
-import BannerProduct from "../components/BannerProduct"
-import CategoryList from "../components/CategoryList"
-import HorizontalCardProduct from "../components/HorizontalCardProduct"
-import VerticalCardProduct from "../components/VerticalCardProduct"
-import BikeList from "../components/BikeList"
+import { useState } from 'react';
+import BannerProduct from "../components/BannerProduct";
+import CategoryList from "../components/CategoryList";
+import HorizontalCardProduct from "../components/HorizontalCardProduct";
+import VerticalCardProduct from "../components/VerticalCardProduct";
+import BikeList from "../components/BikeList";
+import { MdOutlineKeyboardDoubleArrowUp, MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 
 const Home = () => {
+    const allCards = [
+        { category: "Air Filters & Intakes", heading: "Best Air Filters & Intakes", type: "horizontal" },
+        { category: "Bearings", heading: "Top's Bearings", type: "horizontal" },
+        { category: "Body Parts", heading: "Body Parts", type: "vertical" },
+        { category: "Battery", heading: "Battery", type: "vertical" },
+        { category: "Brakes", heading: "Brakes", type: "vertical" },
+        { category: "Carburetors", heading: "Carburetors", type: "vertical" },
+        { category: "Control Cables", heading: "Control Cables", type: "vertical" },
+        { category: "Engine Parts", heading: "Engine Parts", type: "vertical" },
+        { category: "Electrical Parts", heading: "Electrical Parts", type: "vertical" },
+        { category: "Jumps & Shocks", heading: "Jumps & Shocks", type: "vertical" },
+        { category: "Lubricants", heading: "Lubricants", type: "vertical" },
+        { category: "Meters", heading: "Meters", type: "vertical" },
+    ];
+
+    const [visibleCount, setVisibleCount] = useState(4);
+    const [showMore, setShowMore] = useState(true);
+
+    const handleShowMore = () => {
+        if (visibleCount + 4 < allCards.length) {
+            setVisibleCount(visibleCount + 4);
+        } else {
+            setVisibleCount(allCards.length);
+            setShowMore(false);
+        }
+    };
+
+    const handleShowLess = () => {
+        setVisibleCount(4);
+        setShowMore(true);
+    };
+
+    const displayedCards = allCards.slice(0, visibleCount);
+
     return (
         <div>
             <CategoryList />
             <BannerProduct />
             <BikeList />
 
-            <HorizontalCardProduct category={"Air Filters & Intakes"} heading={"Best Air Filters & Intakes"} />
-            <HorizontalCardProduct category={"Bearings"} heading={"Top's Bearings"} />
+            {displayedCards.map((card, index) => (
+                card.type === "horizontal" ? (
+                    <HorizontalCardProduct
+                        key={index}
+                        category={card.category}
+                        heading={card.heading}
+                    />
+                ) : (
+                    <VerticalCardProduct
+                        key={index}
+                        category={card.category}
+                        heading={card.heading}
+                    />
+                )
+            ))}
 
-            <VerticalCardProduct category={"Body Parts"} heading={"Body Parts"} />
-            <VerticalCardProduct category={"Battery"} heading={"Battery"} />
-            <VerticalCardProduct category={"Brakes"} heading={"Brakes"} />
-            <VerticalCardProduct category={"Carburetors"} heading={"Carburetors"} />
-            <VerticalCardProduct category={"Control Cables"} heading={"Control Cables"} />
-            <VerticalCardProduct category={"Engine Parts"} heading={"Engine Parts"} />
-            <VerticalCardProduct category={"Electrical Parts"} heading={"Electrical Parts"} />
-            <VerticalCardProduct category={"Jumps & Shocks"} heading={"Jumps & Shocks"} />
-            <VerticalCardProduct category={"Lubricants"} heading={"Lubricants"} />
-            <VerticalCardProduct category={"Meters"} heading={"Meters"} />
+            <div className="flex justify-center mt-4 mb-10">
+                <button
+                    onClick={showMore ? handleShowMore : handleShowLess}
+                    className="px-4 py-2 bg-red-600 text-white rounded-full flex items-center gap-2"
+                >
+                    {showMore ? (
+                        <>
+                            <MdOutlineKeyboardDoubleArrowDown className="text-lg" />
+                            Show More
+                        </>
+                    ) : (
+                        <>
+                            <MdOutlineKeyboardDoubleArrowUp className="text-lg" />
+                            Show Less
+                        </>
+                    )}
+                </button>
+            </div>
         </div>
-    )
-}
-export default Home
+    );
+};
+
+export default Home;

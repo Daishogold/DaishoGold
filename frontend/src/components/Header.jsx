@@ -10,7 +10,9 @@ import { MdAttachMoney } from 'react-icons/md'; // Currency exchange icon
 import Logo from '../assets/logo.png';
 import SummaryApi from '../common';
 import ROLE from '../common/role';
+import { FaChevronDown } from 'react-icons/fa';
 import Context from '../context';
+import scrollToTop from '../helpers/scrollToTop'
 
 const Header = () => {
     const user = useSelector(state => state.user.user);
@@ -19,6 +21,12 @@ const Header = () => {
     const [searchExpanded, setSearchExpanded] = useState(false);
     const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
     const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
+    const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setCurrencyDropdownOpen(!currencyDropdownOpen);
+    };
+
     const context = useContext(Context);
     const navigate = useNavigate();
     const searchInput = useLocation();
@@ -73,7 +81,7 @@ const Header = () => {
         <header className="h-18 shadow-md bg-white fixed w-full z-40">
             <div className="h-full container mx-auto flex items-center px-4 justify-between">
                 <div>
-                    <Link to="/">
+                    <Link to="/" onClick={scrollToTop}>
                         <img src={Logo} alt="logo" style={{ width: '90px', height: '70px' }} />
                     </Link>
                 </div>
@@ -128,17 +136,54 @@ const Header = () => {
                                             </div>
                                         )}
                                     </div>
-                                    <Link to="/currency-exchange" className="block py-2 px-4 hover:bg-gray-100">Currency Exchange</Link>
-                                    <Link to="/about" className="block py-2 px-4 hover:bg-gray-100">About</Link>
+                                    {!productsDropdownOpen && (
+                                        <>
+                                            <div className="relative">
+                                                <button
+                                                    onClick={toggleDropdown}
+                                                    className="py-2 px-4 w-full text-left flex items-center justify-between hover:bg-gray-100"
+                                                >
+                                                    Currency Exchange
+                                                    <FaChevronDown size={15} className="ml-2" />
+                                                </button>
+                                                {currencyDropdownOpen && (
+                                                    <div className="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+                                                        <ul className="py-1">
+                                                            <li>
+                                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                    USD
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                    PKR
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                    INR
+                                                                </button>
+                                                            </li>
+                                                            {/* Add more currencies as needed */}
+                                                        </ul>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            {!currencyDropdownOpen && user?._id && (
+                                                <div className="relative mt-4 flex items-center justify-center">
+                                                    <Link to="/cart" className="relative" onClick={scrollToTop}>
+                                                        <FaShoppingCart size={24} />
+                                                        <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
+                                                            <p className="text-sm">{context?.cartProductCount}</p>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+
+                                            )}
+                                        </>
+                                    )}
+                                    <Link to="/about" onClick={scrollToTop} className="block py-2 px-4 hover:bg-gray-100">About</Link>
                                 </nav>
-                                {user?._id && !productsDropdownOpen && (
-                                    <Link to="/cart" className="block py-2 px-4 hover:bg-gray-100 relative mt-4">
-                                        <span className="flex items-center justify-center"><FaShoppingCart /></span>
-                                        <div className="bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3">
-                                            <p className="text-sm">{context?.cartProductCount}</p>
-                                        </div>
-                                    </Link>
-                                )}
                                 {user?._id ? (
                                     <button onClick={handleLogout} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Logout</button>
                                 ) : (
@@ -147,11 +192,13 @@ const Header = () => {
                             </div>
                         </div>
                     )}
+
+
                 </div>
 
                 {/* Desktop Menu */}
                 <div className="hidden lg:flex items-center space-x-4 mx-auto">
-                    <Link to="/" className="hover:text-red-600">Home</Link>
+                    <Link to="/" onClick={scrollToTop} className="hover:text-red-600">Home</Link>
                     <div className="relative">
                         <button
                             className="flex items-center justify-between hover:text-red-600"
@@ -174,7 +221,7 @@ const Header = () => {
                             </div>
                         )}
                     </div>
-                    <Link to="/about" className="hover:text-red-600">About</Link>
+                    <Link to="/about" onClick={scrollToTop} className="hover:text-red-600">About</Link>
                 </div>
 
                 {/* Search Bar */}
@@ -223,7 +270,7 @@ const Header = () => {
                     </div>
 
                     {user?._id && (
-                        <Link to={"/cart"} className='text-2xl relative'>
+                        <Link to={"/cart"} className='text-2xl relative' onClick={scrollToTop}>
                             <span><FaShoppingCart /></span>
                             <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
                                 <p className='text-sm'>{context?.cartProductCount}</p>
@@ -231,7 +278,36 @@ const Header = () => {
                         </Link>
                     )}
 
-                    <Link to="/currency-exchange" className="text-3xl border border-gray-500 rounded-full"><MdAttachMoney /></Link>
+                    <div className="relative inline-block text-left">
+                        <button
+                            onClick={toggleDropdown}
+                            className="text-3xl border border-gray-500 rounded-full flex items-center p-2"
+                        >
+                            <MdAttachMoney />
+                            <FaChevronDown size={15} className="ml-2" />
+                        </button>
+                        {currencyDropdownOpen && (
+                            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg">
+                                <ul className="py-1">
+                                    <li>
+                                        <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                            USD
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                            PKR
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                            INR
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
 
                     <div>
                         {user?._id ? (
