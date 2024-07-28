@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import BannerProduct from "../components/BannerProduct";
 import CategoryList from "../components/CategoryList";
-import HorizontalCardProduct from "../components/HorizontalCardProduct";
+// import HorizontalCardProduct from "../components/HorizontalCardProduct";
 import VerticalCardProduct from "../components/VerticalCardProduct";
 import BikeList from "../components/BikeList";
 import { MdOutlineKeyboardDoubleArrowUp, MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
@@ -49,7 +49,7 @@ const Home = () => {
 
             {displayedCards.map((card, index) => (
                 card.type === "horizontal" ? (
-                    <HorizontalCardProduct
+                    <VerticalCardProduct
                         key={index}
                         category={card.category}
                         heading={card.heading}

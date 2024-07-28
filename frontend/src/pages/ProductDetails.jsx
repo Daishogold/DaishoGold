@@ -3,10 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import SummaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
-import displayINRCurrency from '../helpers/displayCurrency';
+import displayCurrency from '../helpers/displayCurrency';
 import CategroyWiseProductDisplay from '../components/CategoryWiseProductDisplay';
 import addToCart from '../helpers/addToCart';
 import Context from '../context';
+import { useSelector } from 'react-redux';
 
 const ProductDetails = () => {
     const [data, setData] = useState({
@@ -30,8 +31,24 @@ const ProductDetails = () => {
     const [zoomImage, setZoomImage] = useState(false)
 
     const { fetchUserAddToCart } = useContext(Context)
+    const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
+    const rates = useSelector(state => state.currency.rates);
+    const defaultCurrency = 'PKR';
+
 
     const navigate = useNavigate()
+
+
+    const convertPrice = (price, fromCurrency, toCurrency) => {
+        if (!rates || !rates[fromCurrency] || !rates[toCurrency]) {
+            return price;
+        }
+        const basePriceInPKR = price / rates[fromCurrency];
+        return (basePriceInPKR * rates[toCurrency]).toFixed(2);
+    };
+
+    const displayPrice = (price) => displayCurrency(convertPrice(price, defaultCurrency, selectedCurrency), selectedCurrency);
+
 
     const fetchProductDetails = async () => {
         setLoading(true)
@@ -198,8 +215,8 @@ const ProductDetails = () => {
                                 </div>
 
                                 <div className='flex items-center gap-2 text-2xl lg:text-3xl font-medium my-1'>
-                                    <p className='text-red-600'>{displayINRCurrency(data.sellingPrice)}</p>
-                                    <p className='text-slate-400 line-through'>{displayINRCurrency(data.price)}</p>
+                                    <p className='text-red-600'>{displayPrice(data.sellingPrice)}</p>
+                                    <p className='text-slate-400 line-through'>{displayPrice(data.price)}</p>
                                 </div>
 
                                 <div className='flex items-center gap-3 my-2'>

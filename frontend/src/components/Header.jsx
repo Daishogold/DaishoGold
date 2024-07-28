@@ -6,16 +6,18 @@ import { FaRegCircleUser } from 'react-icons/fa6';
 import { GrSearch, GrMenu, GrDown } from 'react-icons/gr';
 import { toast } from 'react-toastify';
 import { setUserDetails } from '../store/userSlice';
-import { MdAttachMoney } from 'react-icons/md';
 import Logo from '../assets/logo.png';
 import SummaryApi from '../common';
 import ROLE from '../common/role';
 import { FaChevronDown } from 'react-icons/fa';
 import Context from '../context';
 import scrollToTop from '../helpers/scrollToTop'
+import { fetchRates, setCurrency } from '../store/CurrencySlice';
 
 const Header = () => {
     const user = useSelector(state => state.user.user);
+    const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
+    const rates = useSelector(state => state.currency.rates);
     const dispatch = useDispatch();
     const [menuDisplay, setMenuDisplay] = useState(false);
     const [searchExpanded, setSearchExpanded] = useState(false);
@@ -23,8 +25,17 @@ const Header = () => {
     const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
     const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
 
+    useEffect(() => {
+        dispatch(fetchRates());
+    }, [dispatch]);
+
     const toggleDropdown = () => {
         setCurrencyDropdownOpen(!currencyDropdownOpen);
+    };
+
+    const handleCurrencyChange = (currency) => {
+        dispatch(setCurrency(currency));
+        setCurrencyDropdownOpen(false);
     };
 
     const context = useContext(Context);
@@ -130,19 +141,19 @@ const Header = () => {
                                                     onClick={() => setProductsDropdownOpen(prev => !prev)}
                                                 >
                                                     Products
-                                                    <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
+                                                    <GrDown className={`transition - transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                                 </button>
                                                 {productsDropdownOpen && (
                                                     <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                                                     </div>
                                                 )}
                                             </div>
@@ -153,25 +164,30 @@ const Header = () => {
                                                             onClick={toggleDropdown}
                                                             className="py-2 px-4 w-full text-left flex items-center justify-between hover:bg-gray-100"
                                                         >
-                                                            Currency Exchange
-                                                            <FaChevronDown size={15} className="ml-2" />
+                                                            {selectedCurrency}
+                                                            <FaChevronDown size={15} className={`ml - 2 transition-transform duration-200 ${currencyDropdownOpen ? 'rotate-180' : ''}`} />
                                                         </button>
                                                         {currencyDropdownOpen && (
                                                             <div className="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg">
                                                                 <ul className="py-1">
                                                                     <li>
-                                                                        <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                            USD
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                        <button onClick={() => handleCurrencyChange('PKR')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
                                                                             PKR
                                                                         </button>
                                                                     </li>
                                                                     <li>
-                                                                        <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                            INR
+                                                                        <button onClick={() => handleCurrencyChange('USD')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                            USD
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button onClick={() => handleCurrencyChange('EUR')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                            EUR
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button onClick={() => handleCurrencyChange('GBP')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                            GBP
                                                                         </button>
                                                                     </li>
                                                                 </ul>
@@ -190,7 +206,6 @@ const Header = () => {
                                                     )}
                                                 </>
                                             )}
-                                            <Link to="/about" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">About</Link>
                                         </nav>
                                         {user?._id ? (
                                             <button onClick={() => { handleLogout(); handleMenuClick(); }} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Logout</button>
@@ -211,19 +226,19 @@ const Header = () => {
                                     onClick={() => setProductsDropdownOpen(prev => !prev)}
                                 >
                                     Products
-                                    <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
+                                    <GrDown className={`transition - transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 {productsDropdownOpen && (
                                     <div className="w-[170px] absolute left-0 top-full bg-white shadow-lg rounded mt-1">
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                                     </div>
                                 )}
                             </div>
@@ -282,35 +297,25 @@ const Header = () => {
                                 </Link>
                             )}
 
-                            <div className="relative inline-block text-left">
-                                <button
-                                    onClick={toggleDropdown}
-                                    className="text-3xl border border-gray-500 rounded-full flex items-center p-2"
-                                >
-                                    <MdAttachMoney />
-                                    <FaChevronDown size={15} className="ml-2" />
-                                </button>
-                                {currencyDropdownOpen && (
-                                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg">
-                                        <ul className="py-1">
-                                            <li>
-                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                    USD
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                    PKR
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                    INR
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                )}
+                            {/* Currency Dropdown for Desktop */}
+                            <div className="hidden lg:flex items-center space-x-2">
+                                <div className="relative">
+                                    <button
+                                        className="py-2 px-4 hover:bg-gray-100 flex items-center space-x-1"
+                                        onClick={toggleDropdown}
+                                    >
+                                        <span>{selectedCurrency}</span>
+                                        <GrDown className={`transition - transform duration-200 ${currencyDropdownOpen ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    {currencyDropdownOpen && (
+                                        <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-48">
+                                            <button onClick={() => handleCurrencyChange('PKR')} className="block py-2 px-4 hover:bg-gray-100 w-full text-left">PKR</button>
+                                            <button onClick={() => handleCurrencyChange('USD')} className="block py-2 px-4 hover:bg-gray-100 w-full text-left">USD</button>
+                                            <button onClick={() => handleCurrencyChange('EUR')} className="block py-2 px-4 hover:bg-gray-100 w-full text-left">EUR</button>
+                                            <button onClick={() => handleCurrencyChange('GBP')} className="block py-2 px-4 hover:bg-gray-100 w-full text-left">GBP</button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </>

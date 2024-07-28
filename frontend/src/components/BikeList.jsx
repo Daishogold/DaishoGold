@@ -27,18 +27,18 @@ const BikeList = () => {
             <div className="flex items-center gap-4 justify-between overflow-scroll scrollbar-none">
                 {products.map((bike) => (
                     <Link to={"/product-category?category=Bearings"} key={bike.id} className="cursor-pointer">
-                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden p-4 bg-slate-200 flex items-center justify-center">
+                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden p-1 md:p-2 bg-slate-200 flex items-center justify-center">
                             <img
                                 src={bike.image}
                                 alt={bike.name}
-                                className="h-full object-scale-down mix-blend-multiply hover:scale-125 transition-all"
+                                className="w-20 h-20 md:w-28 md:h-28 object-cover hover:scale-125 transition-all"
                             />
                         </div>
                         <p className="text-center text-sm md:text-base capitalize">{bike.name}</p>
                     </Link>
                 ))}
             </div>
-        </div >
+        </div>
     );
 };
 

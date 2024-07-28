@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import SummaryApi from '../common';
 import Context from '../context';
-import displayPKRcurrency from '../helpers/displayCurrency';
+import displayCurrency from '../helpers/displayCurrency';
+import { useSelector } from 'react-redux';
 import { MdDelete } from "react-icons/md";
 
 const Cart = () => {
@@ -20,6 +21,20 @@ const Cart = () => {
     });
     const context = useContext(Context);
     const loadingCart = new Array(4).fill(null);
+
+    const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
+    const rates = useSelector(state => state.currency.rates);
+    const defaultCurrency = 'PKR';
+
+    const convertPrice = (price, fromCurrency, toCurrency) => {
+        if (!rates || !rates[fromCurrency] || !rates[toCurrency]) {
+            return price;
+        }
+        const basePriceInPKR = price / rates[fromCurrency];
+        return (basePriceInPKR * rates[toCurrency]).toFixed(2);
+    };
+
+    const displayPrice = (price) => displayCurrency(convertPrice(price, defaultCurrency, selectedCurrency), selectedCurrency);
 
     const fetchData = async () => {
         try {
@@ -180,8 +195,8 @@ const Cart = () => {
                                         <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1'>{product?.productId?.productName}</h2>
                                         <p className='capitalize text-slate-500'>{product?.productId?.category || 'No category'}</p>
                                         <div className='flex items-center justify-between'>
-                                            <p className='text-red-600 font-medium text-lg'>{displayPKRcurrency(product?.productId?.sellingPrice)}</p>
-                                            <p className='text-slate-600 font-semibold text-lg'>{displayPKRcurrency((product?.productId?.sellingPrice || 0) * (product?.quantity || 0))}</p>
+                                            <p className='text-red-600 font-medium text-lg'>{displayPrice(product?.productId?.sellingPrice)}</p>
+                                            <p className='text-slate-600 font-semibold text-lg'>{displayPrice((product?.productId?.sellingPrice || 0) * (product?.quantity || 0))}</p>
                                         </div>
                                         <div className='flex items-center gap-3 mt-1'>
                                             <button className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-6 h-6 flex justify-center items-center rounded' onClick={() => decreaseQty(product?._id, product?.quantity || 0)}>-</button>
@@ -211,11 +226,11 @@ const Cart = () => {
                                         </div>
                                         <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
                                             <p>Total Price</p>
-                                            <p>{displayPKRcurrency(totalPrice)}</p>
+                                            <p>{displayPrice(totalPrice)}</p>
                                         </div>
                                         <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
                                             <p>Shipping Charges</p>
-                                            <p>{displayPKRcurrency(shippingCharges)}</p>
+                                            <p>{displayPrice(shippingCharges)}</p>
                                         </div>
                                         <button className='bg-blue-600 p-2 text-white w-full mt-2' onClick={() => setShowForm(true)}>Check Out</button>
                                     </div>
@@ -228,7 +243,7 @@ const Cart = () => {
 
             {/* Checkout Form */}
             {showForm && (
-                <div className='fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center'>
+                <div className='fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50'>
                     <div className='bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl h-3/4 overflow-y-auto'>
                         <h2 className='text-xl font-bold mb-4'>Checkout</h2>
                         <form onSubmit={handlePayment} className='space-y-4'>
@@ -340,24 +355,23 @@ const Cart = () => {
                                         <div>
                                             <p className='text-sm font-semibold'>{product?.productId?.productName}</p>
                                             <p className='text-sm'>Quantity: {product?.quantity}</p>
-                                            <p className='text-sm'>Price: {displayPKRcurrency(product?.productId?.sellingPrice)}</p>
+                                            <p className='text-sm'>Price: {displayPrice(product?.productId?.sellingPrice)}</p>
                                         </div>
                                     </div>
                                 ))}
                                 <div className='flex items-center justify-between mt-4 font-medium'>
                                     <p>Total Price</p>
-                                    <p>{displayPKRcurrency(totalPrice)}</p>
+                                    <p>{displayPrice(totalPrice)}</p>
                                 </div>
                                 <div className='flex items-center justify-between mt-2 font-medium'>
                                     <p>Shipping Charges</p>
-                                    <p>{displayPKRcurrency(shippingCharges)}</p>
+                                    <p>{displayPrice(shippingCharges)}</p>
                                 </div>
                                 <div className='flex items-center justify-between mt-2 font-medium'>
                                     <p>Total Amount</p>
-                                    <p>{displayPKRcurrency(totalPrice + shippingCharges)}</p>
+                                    <p>{displayPrice(totalPrice + shippingCharges)}</p>
                                 </div>
                             </div>
-
                             <button
                                 type='submit'
                                 className='bg-blue-600 text-white p-2 rounded w-full mt-4'
@@ -378,5 +392,4 @@ const Cart = () => {
         </div>
     );
 };
-
 export default Cart;

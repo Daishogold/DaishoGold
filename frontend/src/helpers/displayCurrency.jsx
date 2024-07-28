@@ -1,11 +1,23 @@
-const displayPKRCurrency = (num) => {
-    const formatter = new Intl.NumberFormat('en-PK', {
+// const displayPKRCurrency = (num) => {
+//     const formatter = new Intl.NumberFormat('en-PK', {
+//         style: "currency",
+//         currency: "PKR",
+//         maximumFractionDigits: 2
+//     })
+
+//     return formatter.format(num)
+// }
+
+// export default displayPKRCurrency
+
+
+const displayCurrency = (num, currency = 'USD') => {
+    const formatter = new Intl.NumberFormat('en', {
         style: "currency",
-        currency: "PKR",
+        currency,
         maximumFractionDigits: 2
-    })
+    });
+    return formatter.format(num);
+};
 
-    return formatter.format(num)
-}
-
-export default displayPKRCurrency
+export default displayCurrency;
