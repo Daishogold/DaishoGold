@@ -33,17 +33,23 @@ const AdminProductCard = ({ data, fetchdata }) => {
         }
     };
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+
     return (
-        <div className='bg-white p-4 rounded '>
+        <div className='bg-white p-4 rounded'>
             <div className='w-40'>
                 <div className='w-32 h-32 flex justify-center items-center'>
-                    <img src={data?.productImage[0]} className='mx-auto object-fill h-full' />
+                    <img src={data?.productImage[0]} className='mx-auto object-fill h-full' alt={data.productName} />
                 </div>
                 <h1 className='text-ellipsis line-clamp-2'>{data.productName}</h1>
                 <div>
                     <p className='font-semibold'>
                         {displayPKRCurrency(data.sellingPrice)}
                     </p>
+
                     <div className="flex space-x-2">
                         <div className="w-fit p-2 bg-green-100 hover:bg-green-600 rounded-full hover:text-white cursor-pointer" onClick={() => setEditProduct(true)}>
                             <MdModeEditOutline />
@@ -52,6 +58,9 @@ const AdminProductCard = ({ data, fetchdata }) => {
                             <MdDeleteOutline />
                         </div>
                     </div>
+
+                    <p className='text-xs text-gray-500'>Added: {formatDate(data.createdAt)}</p>
+                    <p className='text-xs text-gray-500'>Updated: {formatDate(data.updatedAt)}</p>
                 </div>
             </div>
 

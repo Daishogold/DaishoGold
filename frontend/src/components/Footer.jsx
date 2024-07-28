@@ -1,7 +1,15 @@
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
 import Logo from '../assets/logo.png';
 
 const Footer = () => {
+    const location = useLocation();
+    const isAdminPanel = location.pathname.startsWith('/admin-panel');
+
+    if (isAdminPanel) {
+        return null; // Do not render the footer in the admin panel
+    }
+
     return (
         <footer className="bg-white text-black">
             <div className="container mx-auto p-6 flex flex-col lg:flex-row justify-between">

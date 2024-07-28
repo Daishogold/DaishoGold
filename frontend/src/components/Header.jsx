@@ -96,232 +96,238 @@ const Header = () => {
                     </Link>
                 </div>
 
-                {/* Hamburger Menu for Mobile */}
-                <div className="lg:hidden flex items-center space-x-4">
-                    <div className="flex-1">
-                        <div className="relative mx-auto mr-10">
-                            {!isAdminPanel && (
-                                <input
-                                    type="text"
-                                    placeholder="Search product here..."
-                                    className="w-full outline-none px-2 py-1 border rounded-full"
-                                    onChange={handleSearch}
-                                    value={search}
-                                />
-                            )}
-                        </div>
-                    </div>
+                {!isAdminPanel && (
+                    <>
+                        {/* Hamburger Menu for Mobile */}
+                        <div className="lg:hidden flex items-center space-x-4">
+                            <div className="flex-1">
+                                <div className="relative mx-auto mr-10">
+                                    <input
+                                        type="text"
+                                        placeholder="Search product here..."
+                                        className="w-full outline-none px-2 py-1 border rounded-full"
+                                        onChange={handleSearch}
+                                        value={search}
+                                    />
+                                </div>
+                            </div>
 
-                    <button
-                        className="text-2xl"
-                        onClick={() => setHamburgerMenuOpen(prev => !prev)}
-                    >
-                        <GrMenu />
-                    </button>
+                            <button
+                                className="text-2xl"
+                                onClick={() => setHamburgerMenuOpen(prev => !prev)}
+                            >
+                                <GrMenu />
+                            </button>
 
-                    {hamburgerMenuOpen && (
-                        <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
-                            <div className="flex flex-col items-center">
-                                <nav className="w-full">
-                                    <Link to="/" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Home</Link>
-                                    <div className="relative">
-                                        <button
-                                            className="flex items-center justify-between w-full py-2 px-4 hover:bg-gray-100 text-left"
-                                            onClick={() => setProductsDropdownOpen(prev => !prev)}
-                                        >
-                                            Products
-                                            <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
-                                        </button>
-                                        {productsDropdownOpen && (
-                                            <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
-                                                <Link to={`product-category?category=Bearings`} onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                                <Link to={`product-category?category=Bearings`} onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                                <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
-                                            </div>
-                                        )}
-                                    </div>
-                                    {!productsDropdownOpen && (
-                                        <>
+                            {hamburgerMenuOpen && (
+                                <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
+                                    <div className="flex flex-col items-center">
+                                        <nav className="w-full">
+                                            <Link to="/" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Home</Link>
                                             <div className="relative">
                                                 <button
-                                                    onClick={toggleDropdown}
-                                                    className="py-2 px-4 w-full text-left flex items-center justify-between hover:bg-gray-100"
+                                                    className="flex items-center justify-between w-full py-2 px-4 hover:bg-gray-100 text-left"
+                                                    onClick={() => setProductsDropdownOpen(prev => !prev)}
                                                 >
-                                                    Currency Exchange
-                                                    <FaChevronDown size={15} className="ml-2" />
+                                                    Products
+                                                    <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                                 </button>
-                                                {currencyDropdownOpen && (
-                                                    <div className="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg">
-                                                        <ul className="py-1">
-                                                            <li>
-                                                                <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                    USD
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                    PKR
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                    INR
-                                                                </button>
-                                                            </li>
-                                                        </ul>
+                                                {productsDropdownOpen && (
+                                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                                        <Link to={`product-category?category=Bearings`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                                                     </div>
                                                 )}
                                             </div>
-                                            {!currencyDropdownOpen && user?._id && (
-                                                <div className="relative mt-4 flex items-center justify-center">
-                                                    <Link to="/cart" className="relative" onClick={handleMenuClick}>
-                                                        <FaShoppingCart size={24} />
-                                                        <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
-                                                            <p className="text-sm">{context?.cartProductCount}</p>
+                                            {!productsDropdownOpen && (
+                                                <>
+                                                    <div className="relative">
+                                                        <button
+                                                            onClick={toggleDropdown}
+                                                            className="py-2 px-4 w-full text-left flex items-center justify-between hover:bg-gray-100"
+                                                        >
+                                                            Currency Exchange
+                                                            <FaChevronDown size={15} className="ml-2" />
+                                                        </button>
+                                                        {currencyDropdownOpen && (
+                                                            <div className="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+                                                                <ul className="py-1">
+                                                                    <li>
+                                                                        <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                            USD
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                            PKR
+                                                                        </button>
+                                                                    </li>
+                                                                    <li>
+                                                                        <button onClick={handleMenuClick} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                                            INR
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    {!currencyDropdownOpen && user?._id && (
+                                                        <div className="relative mt-4 flex items-center justify-center">
+                                                            <Link to="/cart" className="relative" onClick={handleMenuClick}>
+                                                                <FaShoppingCart size={24} />
+                                                                <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
+                                                                    <p className="text-sm">{context?.cartProductCount}</p>
+                                                                </div>
+                                                            </Link>
                                                         </div>
-                                                    </Link>
-                                                </div>
+                                                    )}
+                                                </>
                                             )}
-                                        </>
-                                    )}
-                                    <Link to="/about" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">About</Link>
-                                </nav>
-                                {user?._id ? (
-                                    <button onClick={() => { handleLogout(); handleMenuClick(); }} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Logout</button>
-                                ) : (
-                                    <Link to="/login" onClick={handleMenuClick} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Login</Link>
+                                            <Link to="/about" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">About</Link>
+                                        </nav>
+                                        {user?._id ? (
+                                            <button onClick={() => { handleLogout(); handleMenuClick(); }} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Logout</button>
+                                        ) : (
+                                            <Link to="/login" onClick={handleMenuClick} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Login</Link>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Desktop Menu */}
+                        <div className="hidden lg:flex items-center space-x-4 mx-auto">
+                            <Link to="/" onClick={scrollToTop} className="hover:text-red-600">Home</Link>
+                            <div className="relative">
+                                <button
+                                    className="flex items-center justify-between hover:text-red-600"
+                                    onClick={() => setProductsDropdownOpen(prev => !prev)}
+                                >
+                                    Products
+                                    <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
+                                </button>
+                                {productsDropdownOpen && (
+                                    <div className="w-[170px] absolute left-0 top-full bg-white shadow-lg rounded mt-1">
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                        <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                    </div>
+                                )}
+                            </div>
+                            <Link to="/about" onClick={scrollToTop} className="hover:text-red-600">About</Link>
+                        </div>
+
+                        {/* Search Bar */}
+                        <div className="hidden lg:flex items-center mx-auto">
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    placeholder="Search product here..."
+                                    className="w-80 outline-none px-2 py-1 border rounded-full"
+                                    onChange={handleSearch}
+                                    value={search}
+                                />
+                                <button
+                                    className="absolute inset-y-0 right-0 flex items-center pr-2"
+                                    onClick={() => setSearchExpanded(prev => !prev)}
+                                >
+                                    <GrSearch />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="hidden lg:flex items-center gap-4 ml-4">
+                            <div className='relative flex justify-center'>
+                                {user?._id && (
+                                    <div className='text-3xl cursor-pointer relative flex justify-center' onClick={() => setMenuDisplay(prev => !prev)}>
+                                        {user?.profilePic ? (
+                                            <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
+                                        ) : (
+                                            <FaRegCircleUser />
+                                        )}
+                                    </div>
+                                )}
+
+                                {menuDisplay && (
+                                    <div className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded'>
+                                        <nav>
+                                            {user?.role === ROLE.ADMIN && (
+                                                <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Admin Panel</Link>
+                                            )}
+                                            <Link to={'/order'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Order</Link>
+                                        </nav>
+                                    </div>
+                                )}
+                            </div>
+
+                            {user?._id && (
+                                <Link to={"/cart"} className='text-2xl relative' onClick={scrollToTop} >
+                                    <span><FaShoppingCart /></span>
+                                    <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
+                                        <p className='text-sm'>{context?.cartProductCount}</p>
+                                    </div>
+                                </Link>
+                            )}
+
+                            <div className="relative inline-block text-left">
+                                <button
+                                    onClick={toggleDropdown}
+                                    className="text-3xl border border-gray-500 rounded-full flex items-center p-2"
+                                >
+                                    <MdAttachMoney />
+                                    <FaChevronDown size={15} className="ml-2" />
+                                </button>
+                                {currencyDropdownOpen && (
+                                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg">
+                                        <ul className="py-1">
+                                            <li>
+                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                    USD
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                    PKR
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                    INR
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 )}
                             </div>
                         </div>
-                    )}
-                </div>
-
-                {/* Desktop Menu */}
-                <div className="hidden lg:flex items-center space-x-4 mx-auto">
-                    <Link to="/" onClick={scrollToTop} className="hover:text-red-600">Home</Link>
-                    <div className="relative">
-                        <button
-                            className="flex items-center justify-between hover:text-red-600"
-                            onClick={() => setProductsDropdownOpen(prev => !prev)}
-                        >
-                            Products
-                            <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
-                        </button>
-                        {productsDropdownOpen && (
-                            <div className="w-[170px] absolute left-0 top-full bg-white shadow-lg rounded mt-1">
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                <Link to={`product-category`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
-                            </div>
-                        )}
-                    </div>
-                    <Link to="/about" onClick={scrollToTop} className="hover:text-red-600">About</Link>
-                </div>
-
-                {/* Search Bar */}
-                {!isAdminPanel && (
-                    <div className="hidden lg:flex items-center mx-auto">
-                        <div className="relative">
-                            <input
-                                type="text"
-                                placeholder="Search product here..."
-                                className="w-80 outline-none px-2 py-1 border rounded-full"
-                                onChange={handleSearch}
-                                value={search}
-                            />
-                            <button
-                                className="absolute inset-y-0 right-0 flex items-center pr-2"
-                                onClick={() => setSearchExpanded(prev => !prev)}
-                            >
-                                <GrSearch />
-                            </button>
-                        </div>
-                    </div>
+                    </>
                 )}
 
-                <div className="hidden lg:flex items-center gap-4 ml-4">
-                    <div className='relative flex justify-center'>
-                        {user?._id && (
-                            <div className='text-3xl cursor-pointer relative flex justify-center' onClick={() => setMenuDisplay(prev => !prev)}>
-                                {user?.profilePic ? (
-                                    <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
-                                ) : (
-                                    <FaRegCircleUser />
-                                )}
-                            </div>
-                        )}
-
-                        {menuDisplay && (
-                            <div className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded'>
-                                <nav>
-                                    {user?.role === ROLE.ADMIN && (
-                                        <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Admin Panel</Link>
-                                    )}
-                                    <Link to={'/order'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Order</Link>
-                                </nav>
-                            </div>
-                        )}
-                    </div>
-
-                    {user?._id && (
-                        <Link to={"/cart"} className='text-2xl relative' onClick={scrollToTop}>
-                            <span><FaShoppingCart /></span>
-                            <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
-                                <p className='text-sm'>{context?.cartProductCount}</p>
-                            </div>
-                        </Link>
-                    )}
-
-                    <div className="relative inline-block text-left">
-                        <button
-                            onClick={toggleDropdown}
-                            className="text-3xl border border-gray-500 rounded-full flex items-center p-2"
-                        >
-                            <MdAttachMoney />
-                            <FaChevronDown size={15} className="ml-2" />
+                <div>
+                    {user?._id ? (
+                        <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>
+                            Logout
                         </button>
-                        {currencyDropdownOpen && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg">
-                                <ul className="py-1">
-                                    <li>
-                                        <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                            USD
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                            PKR
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                            INR
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-
-                    <div>
-                        {user?._id ? (
-                            <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>Logout</button>
-                        ) : (
-                            <Link to={"/login"} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>Login</Link>
-                        )}
-                    </div>
+                    ) : (
+                        !isAdminPanel && (
+                            <Link to={"/login"} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>
+                                Login
+                            </Link>
+                        )
+                    )}
                 </div>
             </div>
         </header>

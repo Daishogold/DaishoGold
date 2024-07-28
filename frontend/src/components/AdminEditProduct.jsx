@@ -137,7 +137,7 @@ const AdminEditProduct = ({
                             <div className='text-slate-500 flex justify-center items-center flex-col gap-2'>
                                 <span className='text-4xl'><FaCloudUploadAlt /></span>
                                 <p className='text-sm'>Upload Product Image</p>
-                                <input type="file" id='uploadImageInput' className='hidden' onChange={handleUploadProduct} />
+                                <input type="file" id='uploadImageInput' className='hidden' onChange={handleUploadProduct} multiple />
                             </div>
                         </div>
                     </label>

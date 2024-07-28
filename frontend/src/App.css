@@ -18,3 +18,17 @@
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
+/* Custom CSS for Quill editor */
+.quill-editor {
+  width: 100%;
+  height: 150px; /* Set height as needed */
+}
+
+.ql-container {
+  height: 100% !important;
+}
+
+.ql-editor {
+  height: 100% !important;
+}
