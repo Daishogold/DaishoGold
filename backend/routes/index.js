@@ -25,9 +25,12 @@ const deleteProductController = require('../controller/product/deleteProduct')
 const forgotPasswordController = require('../controller/user/forgotPassword')
 const resetPasswordController = require('../controller/user/resetPassowrd')
 const getProductsByBrand = require('../controller/product/getProductByBrand')
+const orderController = require('../controller/order/orderController')
+const googleSignInController = require('../controller/user/googleSignInController')
 
 router.post("/signup", userSignUpController)
 router.post("/signin", userSignInController)
+router.post('/google-signin', googleSignInController);
 router.post("/forgot-password", forgotPasswordController)
 router.post('/reset-password/:token', resetPasswordController);
 router.get("/user-details", authToken, userDetailsController)
@@ -55,6 +58,8 @@ router.post("/addtocart", authToken, addToCartController)
 router.get("/countAddToCartProduct", authToken, countAddToCartProduct)
 router.get("/view-cart-product", authToken, addToCartViewPeoduct)
 router.post("/update-cart-product", authToken, updateAddToCartProduct)
-router.post("/delete-cart-product", authToken, deleteAddToCartProduct)
+
+//order
+router.post('/orders', orderController)
 
 module.exports = router

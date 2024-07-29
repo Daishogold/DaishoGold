@@ -24,6 +24,7 @@ import TermsOfService from '../pages/TermsOfService';
 import WarrantyInformation from '../pages/WarrantyInformation';
 import TrackYourOrder from '../pages/TrackYourOrder';
 import ProductsByBrand from '../components/ProductsByBrand';
+import SuccessPage from '../pages/SuccessPage';
 
 const router = createBrowserRouter([
     {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
             {
                 path: 'cart',
                 element: <Cart />
+            },
+            {
+                path: 'success',
+                element: <SuccessPage />
             },
             {
                 path: 'search',

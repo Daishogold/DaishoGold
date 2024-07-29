@@ -17,7 +17,9 @@ const Cart = () => {
         shippingAddress: '',
         city: '',
         postalCode: '',
-        paymentMethod: 'card'
+        countryCode: '',
+        country: '',
+        paymentMethod: ''
     });
     const context = useContext(Context);
     const loadingCart = new Array(4).fill(null);
@@ -249,15 +251,42 @@ const Cart = () => {
                         <form onSubmit={handlePayment} className='space-y-4'>
                             {/* Contact Information */}
                             <div className='mb-4'>
-                                <label className='block text-sm font-medium text-gray-700 mb-1'>Phone Number</label>
-                                <input
-                                    type='tel'
-                                    name='phone'
-                                    value={formData.phone}
-                                    onChange={handleInputChange}
-                                    className='w-full p-2 border border-gray-300 rounded'
-                                    required
-                                />
+                                <label className='block text-sm font-medium text-gray-700 mb-1'>Contact Information</label>
+                                <div className='flex flex-col md:flex-row gap-4'>
+                                    <div className='flex-1'>
+                                        <label className='block text-sm font-medium text-gray-700 mb-1'>Country Code</label>
+                                        <input
+                                            type='text'
+                                            name='countryCode'
+                                            value={formData.countryCode}
+                                            onChange={handleInputChange}
+                                            className='w-full p-2 border border-gray-300 rounded'
+                                            required
+                                        />
+                                    </div>
+                                    <div className='flex-1'>
+                                        <label className='block text-sm font-medium text-gray-700 mb-1'>Phone Number</label>
+                                        <input
+                                            type='tel'
+                                            name='phone'
+                                            value={formData.phone}
+                                            onChange={handleInputChange}
+                                            className='w-full p-2 border border-gray-300 rounded'
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className='mt-4'>
+                                    <label className='block text-sm font-medium text-gray-700 mb-1'>Country</label>
+                                    <input
+                                        type='text'
+                                        name='country'
+                                        value={formData.country}
+                                        onChange={handleInputChange}
+                                        className='w-full p-2 border border-gray-300 rounded'
+                                        required
+                                    />
+                                </div>
                             </div>
 
                             {/* Personal Information */}
@@ -341,7 +370,6 @@ const Cart = () => {
                                     className='w-full p-2 border border-gray-300 rounded'
                                     required
                                 >
-                                    <option value='card'>Card</option>
                                     <option value='cash'>Cash on Delivery</option>
                                 </select>
                             </div>
@@ -389,6 +417,8 @@ const Cart = () => {
                     </div>
                 </div>
             )}
+
+
         </div>
     );
 };

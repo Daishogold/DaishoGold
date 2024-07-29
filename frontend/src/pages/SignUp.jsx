@@ -112,6 +112,8 @@ const SignUp = () => {
 
                     <button type='submit' className='w-full max-w-[150px] m-auto bg-red-600 hover:bg-red-700 cursor-pointer text-white text-xl font-medium text-center py-1 rounded-full mt-4 drop-shadow-md'>Sign up</button>
                 </form>
+
+
                 <p className='text-left text-sm mt-2'>Already have an account? <Link to={"/login"} className='text-red-500 underline'>Login</Link></p>
             </div>
         </div>
