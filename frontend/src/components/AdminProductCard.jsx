@@ -2,12 +2,26 @@ import { useState } from 'react';
 import { MdModeEditOutline, MdDeleteOutline } from "react-icons/md";
 import AdminEditProduct from './AdminEditProduct';
 import PropTypes from 'prop-types';
-import displayPKRCurrency from '../helpers/displayCurrency';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
+import displayCurrency from '../helpers/displayCurrency';
+import { useSelector } from 'react-redux';
 
 const AdminProductCard = ({ data, fetchdata }) => {
     const [editProduct, setEditProduct] = useState(false);
+    const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
+    const rates = useSelector(state => state.currency.rates);
+    const defaultCurrency = 'PKR';
+
+    const convertPrice = (price, fromCurrency, toCurrency) => {
+        if (!rates || !rates[fromCurrency] || !rates[toCurrency]) {
+            return price;
+        }
+        const basePriceInPKR = price / rates[fromCurrency];
+        return (basePriceInPKR * rates[toCurrency]).toFixed(2);
+    };
+
+    const displayPrice = (price) => displayCurrency(convertPrice(price, defaultCurrency, selectedCurrency), selectedCurrency);
 
     const handleDelete = async () => {
         try {
@@ -47,7 +61,7 @@ const AdminProductCard = ({ data, fetchdata }) => {
                 <h1 className='text-ellipsis line-clamp-2'>{data.productName}</h1>
                 <div>
                     <p className='font-semibold'>
-                        {displayPKRCurrency(data.sellingPrice)}
+                        {displayPrice(data.sellingPrice)}
                     </p>
 
                     <div className="flex space-x-2">

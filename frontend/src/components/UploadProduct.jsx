@@ -9,6 +9,21 @@ import { MdDelete } from 'react-icons/md';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 
+// Sample bike names array
+const bikes = [
+    "Honda CD 70",
+    "Honda GD 110",
+    "Suzuki GS 150",
+    "Yamaha YBR",
+    "Honda CB 150",
+    "Honda H125",
+    "Honda Deluxe 125",
+    "Jialing JH 70",
+    "Honda CG 125",
+    "Harley Davidson X440",
+    "Royal Enfield Hunter 350"
+];
+
 const UploadProduct = ({ onClose, fetchData }) => {
     const [data, setData] = useState({
         productName: "",
@@ -101,7 +116,12 @@ const UploadProduct = ({ onClose, fetchData }) => {
                     <input type="text" id='productName' placeholder='Enter Product Name' name='productName' value={data.productName} onChange={handleOnChange} className='p-2 bg-slate-100 border rounded' required />
 
                     <label htmlFor="brandName" className='mt-3'>Brand Name:</label>
-                    <input type="text" id='brandName' placeholder='Enter Brand Name' name='brandName' value={data.brandName} onChange={handleOnChange} className='p-2 bg-slate-100 border rounded' required />
+                    <select id='brandName' name='brandName' value={data.brandName} onChange={handleOnChange} className='p-2 bg-slate-100 border rounded' required>
+                        <option value="">Select Brand</option>
+                        {bikes.map((bike, index) => (
+                            <option key={index} value={bike}>{bike}</option>
+                        ))}
+                    </select>
 
                     <label htmlFor="category" className='mt-3'>Category:</label>
                     <select value={data.category} name='category' onChange={handleOnChange} className='p-2 bg-slate-100 border rounded' required>
@@ -150,7 +170,7 @@ const UploadProduct = ({ onClose, fetchData }) => {
                     <input
                         type='number'
                         id='price'
-                        placeholder='enter price'
+                        placeholder='Enter Price'
                         value={data.price}
                         name='price'
                         onChange={handleOnChange}

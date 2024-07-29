@@ -101,11 +101,12 @@ const Header = () => {
     return (
         <header className="h-18 shadow-md bg-white fixed w-full z-40">
             <div className="h-full container mx-auto flex items-center px-4 justify-between">
-                <div>
+                <div className="flex items-center justify-center">
                     <Link to="/" onClick={scrollToTop}>
-                        <img src={Logo} alt="logo" style={{ width: '90px', height: '70px' }} />
+                        <img src={Logo} alt="logo" className="w-24 h-20 object-contain" />
                     </Link>
                 </div>
+
 
                 {!isAdminPanel && (
                     <>
@@ -155,6 +156,8 @@ const Header = () => {
                                                         <Link to={`/products-by-brand?brandName=Honda%20Deluxe%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
                                                         <Link to={`/products-by-brand?brandName=Jialing%20JH%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
                                                         <Link to={`/products-by-brand?brandName=Honda%20CG%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                                        <Link to={`/products-by-brand?brandName=Harley%Davidson%X440`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Harley Davidson X440</Link>
+                                                        <Link to={`/products-by-brand?brandName=Royal%Enfield%Hunter%350`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Royal Enfield Hunter 350</Link>
                                                     </div>
                                                 )}
                                             </div>
@@ -196,7 +199,7 @@ const Header = () => {
                                                         )}
                                                     </div>
                                                     {!currencyDropdownOpen && user?._id && (
-                                                        <div className="relative mt-4 flex items-center justify-center">
+                                                        <div className="relative mt-4 right-48 flex items-center justify-center">
                                                             <Link to="/cart" className="relative" onClick={handleMenuClick}>
                                                                 <FaShoppingCart size={24} />
                                                                 <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
@@ -208,6 +211,7 @@ const Header = () => {
                                                 </>
                                             )}
                                         </nav>
+
                                         {user?._id ? (
                                             <button
                                                 onClick={() => { handleLogout(); handleMenuClick(); }}
@@ -242,7 +246,7 @@ const Header = () => {
                                     <GrDown className={`transition - transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 {productsDropdownOpen && (
-                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[170px]">
+                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[210px]">
                                         <Link to={`/products-by-brand?brandName=Honda%20CD%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
                                         <Link to={`/products-by-brand?brandName=Honda%20GD%20110`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
                                         <Link to={`/products-by-brand?brandName=Suzuki%20GS%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
@@ -252,6 +256,8 @@ const Header = () => {
                                         <Link to={`/products-by-brand?brandName=Honda%20Deluxe%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
                                         <Link to={`/products-by-brand?brandName=Jialing%20JH%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
                                         <Link to={`/products-by-brand?brandName=Honda%20CG%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                        <Link to={`/products-by-brand?brandName=Harley%Davidson%X440`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Harley Davidson X440</Link>
+                                        <Link to={`/products-by-brand?brandName=Royal%Enfield%Hunter%350`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Royal Enfield Hunter 350</Link>
                                     </div>
 
                                 )}
@@ -297,7 +303,8 @@ const Header = () => {
                                             {user?.role === ROLE.ADMIN && (
                                                 <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Admin Panel</Link>
                                             )}
-                                            <Link to={'/order'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Order</Link>
+                                            <Link to={'/order'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Order Details</Link>
+                                            <Link to={'/loyalty'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
                                         </nav>
                                     </div>
                                 )}
@@ -336,7 +343,44 @@ const Header = () => {
                     </>
                 )}
 
-                <div>
+                <div className="flex items-center space-x-4">
+                    {isAdminPanel && (
+                        <div className="relative">
+                            <button
+                                onClick={toggleDropdown}
+                                className="py-2 px-4 w-full text-left flex items-center justify-between hover:bg-gray-100"
+                            >
+                                {selectedCurrency}
+                                <FaChevronDown size={15} className={`ml-2 transition-transform duration-200 ${currencyDropdownOpen ? 'rotate-180' : ''}`} />
+                            </button>
+                            {currencyDropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+                                    <ul className="py-1">
+                                        <li>
+                                            <button onClick={() => handleCurrencyChange('PKR')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                PKR
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => handleCurrencyChange('USD')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                USD
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => handleCurrencyChange('EUR')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                EUR
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => handleCurrencyChange('GBP')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
+                                                GBP
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )}
+                        </div>
+                    )}
                     {user?._id ? (
                         <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700 hidden sm:block'>
                             Logout
@@ -349,8 +393,9 @@ const Header = () => {
                         )
                     )}
                 </div>
+
             </div>
-        </header>
+        </header >
     );
 };
 
