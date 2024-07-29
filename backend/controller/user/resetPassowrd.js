@@ -1,6 +1,11 @@
 const bcrypt = require('bcryptjs');
 const userModel = require('../../models/userModel');
 
+function validatePassword(password) {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+}
+
 async function resetPasswordController(req, res) {
     try {
         const { token } = req.params;
@@ -8,6 +13,9 @@ async function resetPasswordController(req, res) {
 
         if (!password) {
             throw new Error("Please provide a new password");
+        }
+        if (!validatePassword(password)) {
+            throw new Error("Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character");
         }
 
         const user = await userModel.findOne({

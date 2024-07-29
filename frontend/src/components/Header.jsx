@@ -255,7 +255,8 @@ const Header = () => {
                                     </div>
                                 )}
                             </div>
-                            <Link to="/about" onClick={scrollToTop} className="hover:text-red-600">About</Link>
+                            <Link to="/about" onClick={scrollToTop} className="hover:text-red-600">About Us</Link>
+                            <Link to="/contact" onClick={scrollToTop} className="hover:text-red-600">Contact Us</Link>
                         </div>
 
                         {/* Search Bar */}

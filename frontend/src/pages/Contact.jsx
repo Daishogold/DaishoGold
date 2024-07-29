@@ -31,7 +31,7 @@ const Contact = () => {
                 >
                     <FaPhone className="text-4xl text-blue-600 mb-4" />
                     <h2 className="text-xl font-semibold">Phone</h2>
-                    <p className="text-gray-600">1-800-123-4567</p>
+                    <p className="text-gray-600">+81 80-3327-9070</p>
                 </motion.div>
                 <motion.div
                     className="flex flex-col items-center text-center bg-white shadow-lg rounded-lg p-6"
@@ -51,7 +51,7 @@ const Contact = () => {
                 >
                     <FaMapMarkerAlt className="text-4xl text-green-600 mb-4" />
                     <h2 className="text-xl font-semibold">Address</h2>
-                    <p className="text-gray-600">123 Daisho St, Gold City, USA</p>
+                    <p className="text-gray-600">Ibaraki prefecture koga city morokawa 934-14, Japan.</p>
                 </motion.div>
             </div>
             <motion.div

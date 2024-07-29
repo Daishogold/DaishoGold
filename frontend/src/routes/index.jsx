@@ -17,6 +17,12 @@ import About from '../pages/About';
 import FAQ from '../pages/FAQ';
 import Contact from '../pages/Contact';
 import ResetPassword from '../pages/ResetPassword';
+import Returns from '../pages/Returns';
+import Shipping from '../pages/Shipping';
+import PrivacyPolicy from '../pages/PrivacyPolicy';
+import TermsOfService from '../pages/TermsOfService';
+import WarrantyInformation from '../pages/WarrantyInformation';
+import TrackYourOrder from '../pages/TrackYourOrder';
 
 const router = createBrowserRouter([
     {
@@ -70,6 +76,30 @@ const router = createBrowserRouter([
             {
                 path: 'contact',
                 element: <Contact />
+            },
+            {
+                path: 'returns',
+                element: <Returns />
+            },
+            {
+                path: 'shipping',
+                element: <Shipping />
+            },
+            {
+                path: 'privacy-policy',
+                element: <PrivacyPolicy />
+            },
+            {
+                path: 'terms-of-service',
+                element: <TermsOfService />
+            },
+            {
+                path: 'warranty',
+                element: <WarrantyInformation />
+            },
+            {
+                path: 'track-order',
+                element: <TrackYourOrder />
             },
             {
                 path: 'admin-panel',

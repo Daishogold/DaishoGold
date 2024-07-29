@@ -22,7 +22,7 @@ async function forgotPasswordController(req, res) {
         await user.save();
 
         res.status(200).json({
-            message: "Password reset token generated successfully",
+            message: "User found.. Now Proceed To Reset Password",
             data: { token: resetToken }, // Send token in response
             success: true,
             error: false
