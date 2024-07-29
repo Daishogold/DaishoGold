@@ -9,6 +9,14 @@ const SummaryApi = {
         url: `${backendDomin}/api/signin`,
         method: "post"
     },
+    forgotPasword: {
+        url: `${backendDomin}/api/forgot-password`,
+        method: 'post'
+    },
+    resetPassword: {
+        url: `${backendDomin}/api/reset-password`, // The token will be appended in the request URL
+        method: 'post'
+    },
     current_user: {
         url: `${backendDomin}/api/user-details`,
         method: "get"

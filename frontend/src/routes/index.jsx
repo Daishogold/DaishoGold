@@ -16,6 +16,7 @@ import Dashboard from '../pages/Dashboard';
 import About from '../pages/About';
 import FAQ from '../pages/FAQ';
 import Contact from '../pages/Contact';
+import ResetPassword from '../pages/ResetPassword';
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: 'forgot-password',
                 element: <ForgotPassword />
+            },
+            {
+                path: "/reset-password/:token",
+                element: <ResetPassword />
             },
             {
                 path: 'sign-up',
