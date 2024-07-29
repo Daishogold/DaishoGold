@@ -3,9 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import productCategory from '../helpers/productCategory'
 import VerticalCard from '../components/VerticalCard'
 import SummaryApi from '../common'
+import { FaFilter } from 'react-icons/fa';
 
 const CategoryProduct = () => {
     const [data, setData] = useState([])
+    const [isFiltersVisible, setIsFiltersVisible] = useState(false);
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const location = useLocation()
@@ -16,6 +18,10 @@ const CategoryProduct = () => {
     urlCategoryListinArray.forEach(el => {
         urlCategoryListObject[el] = true
     })
+
+    const handleToggleFilters = () => {
+        setIsFiltersVisible(prev => !prev);
+    };
 
     const [selectCategory, setSelectCategory] = useState(urlCategoryListObject)
     const [filterCategoryList, setFilterCategoryList] = useState([])
@@ -38,7 +44,7 @@ const CategoryProduct = () => {
     }
 
     const handleSelectCategory = (e) => {
-        const { name, value, checked } = e.target
+        const { value, checked } = e.target
 
         setSelectCategory((preve) => {
             return {
@@ -95,8 +101,19 @@ const CategoryProduct = () => {
     return (
         <div className='container mx-auto p-4'>
             <div className='flex flex-col lg:flex-row'>
+                {/* Toggle Button for Mobile */}
+                <button
+                    className='lg:hidden mb-4 px-4 py-2 bg-blue-600 text-white rounded flex items-center'
+                    onClick={handleToggleFilters}
+                >
+                    <FaFilter className='inline-block mr-2' />
+                    {isFiltersVisible ? 'Hide Filters' : 'Show Filters'}
+                </button>
+
                 {/* Sidebar / Filters */}
-                <div className='w-full lg:w-64 bg-white p-4 mb-4 lg:mb-0 lg:mr-4'>
+                <div
+                    className={`w-full lg:w-64 bg-white p-4 mb-4 lg:mb-0 lg:mr-4 transition-transform ${isFiltersVisible ? 'block' : 'hidden lg:block'}`}
+                >
                     {/* Sort by */}
                     <div className='mb-6'>
                         <h3 className='text-base uppercase font-medium text-slate-500 border-b pb-1 border-slate-300'>Sort by</h3>

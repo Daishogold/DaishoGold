@@ -110,9 +110,9 @@ const Header = () => {
                 {!isAdminPanel && (
                     <>
                         {/* Hamburger Menu for Mobile */}
-                        <div className="lg:hidden flex items-center space-x-4">
+                        <div className="lg:hidden flex items-center space-x-4 w-full">
                             <div className="flex-1">
-                                <div className="relative mx-auto mr-10">
+                                <div className="relative mx-auto mr-3">
                                     <input
                                         type="text"
                                         placeholder="Search product here..."
@@ -124,11 +124,12 @@ const Header = () => {
                             </div>
 
                             <button
-                                className="text-2xl"
+                                className="text-2xl ml-3"
                                 onClick={() => setHamburgerMenuOpen(prev => !prev)}
                             >
                                 <GrMenu />
                             </button>
+
 
                             {hamburgerMenuOpen && (
                                 <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
@@ -208,10 +209,22 @@ const Header = () => {
                                             )}
                                         </nav>
                                         {user?._id ? (
-                                            <button onClick={() => { handleLogout(); handleMenuClick(); }} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Logout</button>
+                                            <button
+                                                onClick={() => { handleLogout(); handleMenuClick(); }}
+                                                className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700"
+                                            >
+                                                Logout
+                                            </button>
                                         ) : (
-                                            <Link to="/login" onClick={handleMenuClick} className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700">Login</Link>
+                                            <Link
+                                                to="/login"
+                                                onClick={handleMenuClick}
+                                                className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700"
+                                            >
+                                                Login
+                                            </Link>
                                         )}
+
                                     </div>
                                 </div>
                             )}
@@ -323,12 +336,12 @@ const Header = () => {
 
                 <div>
                     {user?._id ? (
-                        <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>
+                        <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700 hidden sm:block'>
                             Logout
                         </button>
                     ) : (
                         !isAdminPanel && (
-                            <Link to={"/login"} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>
+                            <Link to={"/login"} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700 hidden sm:block'>
                                 Login
                             </Link>
                         )
