@@ -146,15 +146,15 @@ const Header = () => {
                                                 </button>
                                                 {productsDropdownOpen && (
                                                     <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                                        <Link to={'/product-category?category=Bearings'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                                        <Link to={`/products-by-brand?brandName=Honda%20CD%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                                        <Link to={`/products-by-brand?brandName=Honda%20GD%20110`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                                        <Link to={`/products-by-brand?brandName=Suzuki%20GS%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                                        <Link to={`/products-by-brand?brandName=Yamaha%20YBR`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                                        <Link to={`/products-by-brand?brandName=Honda%20CB%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                                        <Link to={`/products-by-brand?brandName=Honda%20H125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                                        <Link to={`/products-by-brand?brandName=Honda%20Deluxe%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                                        <Link to={`/products-by-brand?brandName=Jialing%20JH%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                                        <Link to={`/products-by-brand?brandName=Honda%20CG%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                                                     </div>
                                                 )}
                                             </div>
@@ -242,17 +242,18 @@ const Header = () => {
                                     <GrDown className={`transition - transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 {productsDropdownOpen && (
-                                    <div className="w-[170px] absolute left-0 top-full bg-white shadow-lg rounded mt-1">
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                        <Link to={'/product-category'} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
+                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[170px]">
+                                        <Link to={`/products-by-brand?brandName=Honda%20CD%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
+                                        <Link to={`/products-by-brand?brandName=Honda%20GD%20110`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
+                                        <Link to={`/products-by-brand?brandName=Suzuki%20GS%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
+                                        <Link to={`/products-by-brand?brandName=Yamaha%20YBR`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
+                                        <Link to={`/products-by-brand?brandName=Honda%20CB%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
+                                        <Link to={`/products-by-brand?brandName=Honda%20H125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
+                                        <Link to={`/products-by-brand?brandName=Honda%20Deluxe%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
+                                        <Link to={`/products-by-brand?brandName=Jialing%20JH%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
+                                        <Link to={`/products-by-brand?brandName=Honda%20CG%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
                                     </div>
+
                                 )}
                             </div>
                             <Link to="/about" onClick={scrollToTop} className="hover:text-red-600">About Us</Link>

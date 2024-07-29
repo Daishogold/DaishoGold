@@ -23,6 +23,7 @@ import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
 import WarrantyInformation from '../pages/WarrantyInformation';
 import TrackYourOrder from '../pages/TrackYourOrder';
+import ProductsByBrand from '../components/ProductsByBrand';
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: 'product-category',
                 element: <CategoryProduct />
+            },
+            {
+                path: 'products-by-brand',
+                element: <ProductsByBrand />
             },
             {
                 path: 'product/:id',
