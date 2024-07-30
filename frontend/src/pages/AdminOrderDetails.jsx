@@ -2,9 +2,26 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import SummaryApi from '../common';
+import displayCurrency from '../helpers/displayCurrency';
+import { useSelector } from 'react-redux';
+
 
 const AdminOrderDetails = () => {
     const [orders, setOrders] = useState([]);
+    const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
+    const rates = useSelector(state => state.currency.rates);
+    const defaultCurrency = 'PKR';
+
+    const convertPrice = (price, fromCurrency, toCurrency) => {
+        if (!rates || !rates[fromCurrency] || !rates[toCurrency]) {
+            return price;
+        }
+        const basePriceInPKR = price / rates[fromCurrency];
+        return (basePriceInPKR * rates[toCurrency]).toFixed(2);
+    };
+
+    const displayPrice = (price) => displayCurrency(convertPrice(price, defaultCurrency, selectedCurrency), selectedCurrency);
+
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -37,7 +54,7 @@ const AdminOrderDetails = () => {
                     <h3 className="text-xl font-semibold mb-2 text-blue-600">Order ID: {order._id}</h3>
                     <p className="mb-2"><strong>User:</strong> {order.userId?.name} ({order.userId?.email})</p>
                     <p className="mb-2"><strong>Status:</strong> <span className={`inline-block px-2 py-1 rounded ${order.status === 'Pending' ? 'bg-yellow-200 text-yellow-800' : order.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>{order.status}</span></p>
-                    <p className="mb-2"><strong>Total Amount:</strong> ${order.totalAmount}</p>
+                    <p className="mb-2"><strong>Total Amount:</strong> {displayPrice(order.totalAmount)}</p>
                     <p className="mb-2"><strong>Payment Method:</strong> {order.paymentMethod}</p>
                     <p className="mb-4"><strong>Shipping Address:</strong> {order.shippingAddress}</p>
                     <h4 className="text-lg font-semibold mb-2 text-gray-700">Products:</h4>
@@ -51,7 +68,7 @@ const AdminOrderDetails = () => {
                                     <span className="block font-medium text-gray-800"><strong>Product:</strong> {product.productId.productName}</span>
                                     <span className="block text-gray-600"><strong>Brand:</strong> {product.productId.brandName}</span>
                                     <span className="block text-gray-600"><strong>Quantity:</strong> {product.quantity}</span>
-                                    <span className="block text-gray-600"><strong>Selling Price:</strong> ${product.sellingPrice}</span>
+                                    <span className="block text-gray-600"><strong>Selling Price:</strong> {displayPrice(product.sellingPrice)}</span>
                                 </div>
                             </li>
                         ))}

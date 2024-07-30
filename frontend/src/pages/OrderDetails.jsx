@@ -3,10 +3,25 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import SummaryApi from '../common';
+import displayCurrency from '../helpers/displayCurrency';
+
 
 const OrderDetails = () => {
     const user = useSelector((state) => state.user.user);
     const [orders, setOrders] = useState([]);
+    const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
+    const rates = useSelector(state => state.currency.rates);
+    const defaultCurrency = 'PKR';
+
+    const convertPrice = (price, fromCurrency, toCurrency) => {
+        if (!rates || !rates[fromCurrency] || !rates[toCurrency]) {
+            return price;
+        }
+        const basePriceInPKR = price / rates[fromCurrency];
+        return (basePriceInPKR * rates[toCurrency]).toFixed(2);
+    };
+
+    const displayPrice = (price) => displayCurrency(convertPrice(price, defaultCurrency, selectedCurrency), selectedCurrency);
 
     useEffect(() => {
         if (user && user._id) {
@@ -39,7 +54,7 @@ const OrderDetails = () => {
                             {order.status}
                         </span>
                     </p>
-                    <p className="text-gray-700 mb-2"><strong>Total Amount:</strong> ${order.totalAmount}</p>
+                    <p className="text-gray-700 mb-2"><strong>Total Amount:</strong> {displayPrice(order.totalAmount)}</p>
                     <p className="text-gray-700 mb-4"><strong>Payment Method:</strong> {order.paymentMethod}</p>
                     <h4 className="text-xl font-semibold mb-3 text-gray-800">Products:</h4>
                     <ul className="space-y-4">

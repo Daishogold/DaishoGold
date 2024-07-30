@@ -27,6 +27,8 @@ import ProductsByBrand from '../components/ProductsByBrand';
 import SuccessPage from '../pages/SuccessPage';
 import AdminOrderDetails from '../pages/AdminOrderDetails';
 import OrderDetails from '../pages/OrderDetails';
+import Wallet from '../pages/Wallet';
+import AdminLoyalty from '../pages/AdminLoyalty';
 
 const router = createBrowserRouter([
     {
@@ -118,6 +120,10 @@ const router = createBrowserRouter([
                 element: <OrderDetails />,
             },
             {
+                path: 'wallet',
+                element: <Wallet />,
+            },
+            {
                 path: 'admin-panel',
                 element: <AdminPanel />,
                 children: [
@@ -136,6 +142,10 @@ const router = createBrowserRouter([
                     {
                         path: 'orders',
                         element: <AdminOrderDetails />,
+                    },
+                    {
+                        path: 'loyalty',
+                        element: <AdminLoyalty />,
                     },
                 ]
             }

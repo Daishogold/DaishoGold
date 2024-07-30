@@ -48,7 +48,7 @@ const BikeList = () => {
                                 className="w-20 h-20 md:w-28 md:h-28 object-cover hover:scale-125 transition-all mix-blend-multiply"
                             />
                         </div>
-                        <p className="text-center text-sm md:text-base capitalize">{bike.name}</p>
+                        <p className="text-center text-sm md:text-base capitalize line-clamp-1">{bike.name}</p>
                     </div>
                 ))}
             </div>

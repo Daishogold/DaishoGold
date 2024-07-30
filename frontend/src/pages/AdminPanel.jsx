@@ -49,7 +49,7 @@ const AdminPanel = () => {
                         <Link to="orders" className="whitespace-nowrap hover:bg-slate-100 p-2">
                             All Orders
                         </Link>
-                        <Link to="loyalty-pragram" className="px-2 py-1 hover:bg-slate-100 rounded-lg">
+                        <Link to="loyalty" className="px-2 py-1 hover:bg-slate-100 rounded-lg">
                             Loyalty Program
                         </Link>
                     </nav>

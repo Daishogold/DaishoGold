@@ -82,8 +82,8 @@ const Login = () => {
                         <img src={loginIcons} alt='login icons' />
                     </div>
 
-                    <form className='pt-6 flex flex-col gap-2' onSubmit={handleSubmit}>
-                        <div className='grid'>
+                    <form className='pt-6 flex flex-col gap-4 items-center' onSubmit={handleSubmit}>
+                        <div className='grid w-full'>
                             <label>Email : </label>
                             <div className='bg-slate-100 p-2'>
                                 <input
@@ -96,7 +96,7 @@ const Login = () => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className='w-full'>
                             <label>Password : </label>
                             <div className='bg-slate-100 p-2 flex'>
                                 <input
@@ -117,15 +117,20 @@ const Login = () => {
                             </Link>
                         </div>
 
-                        <button className='bg-red-600 hover:bg-red-700 text-white px-6 py-2 w-full max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-6'>Login</button>
+                        <button className='bg-red-600 hover:bg-red-700 text-white px-6 py-2 w-full max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-4'>Login</button>
+
+                        <div className="text-center mt-2">
+                            <span className="block text-gray-600 mb-2">or</span>
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={() => {
+                                    toast.error('Login Failed');
+                                }}
+                                className='mt-2'
+                            />
+                        </div>
                     </form>
 
-                    <GoogleLogin
-                        onSuccess={handleGoogleSuccess}
-                        onError={() => {
-                            toast.error('Login Failed');
-                        }}
-                    />
 
                     <p className='my-5'>Don&apos;t have account ? <Link to={"/sign-up"} className=' text-red-600 hover:text-red-700 hover:underline'>Sign up</Link></p>
                 </div>

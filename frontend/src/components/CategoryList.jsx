@@ -26,7 +26,7 @@ const CategoryList = () => {
     }, []);
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 mt-3">
             <div className="flex items-center gap-4 justify-between overflow-x-scroll scrollbar-none">
                 {loading
                     ? categoryLoading.map((el, index) => (
@@ -38,7 +38,7 @@ const CategoryList = () => {
                                 <div className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden p-1 md:p-2 lg:p-2.5 bg-slate-200 flex items-center justify-center">
                                     <img src={product?.productImage[0]} alt={product?.category} className="h-full w-full object-cover hover:scale-125 transition-all mix-blend-multiply" />
                                 </div>
-                                <p className="text-center text-sm md:text-base lg:text-lg capitalize">{product?.category}</p>
+                                <p className="text-center text-sm md:text-base lg:text-lg capitalize line-clamp-1">{product?.category}</p>
                             </Link>
                         ))
                     ) : (

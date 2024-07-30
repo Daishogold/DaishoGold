@@ -199,7 +199,7 @@ const Header = () => {
                                                         )}
                                                     </div>
                                                     {!currencyDropdownOpen && user?._id && (
-                                                        <div className="relative mt-4 right-48 flex items-center justify-center">
+                                                        <div className="relative mt-4 right-40 flex items-center justify-center">
                                                             <Link to="/cart" className="relative" onClick={handleMenuClick}>
                                                                 <FaShoppingCart size={24} />
                                                                 <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
@@ -214,11 +214,12 @@ const Header = () => {
 
                                         {user?._id ? (
                                             <>
-                                                <Link to={'/loyalty'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
-                                                <Link to="/order-details" className="whitespace-nowrap block hover:bg-slate-100 p-2">
-                                                    My Orders
-                                                </Link>
-
+                                                <div className="flex flex-col items-end space-y-2">
+                                                    <Link to={'/wallet'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
+                                                    <Link to="/order-details" className="whitespace-nowrap block hover:bg-slate-100 p-2">
+                                                        My Orders
+                                                    </Link>
+                                                </div>
                                                 <button
                                                     onClick={() => { handleLogout(); handleMenuClick(); }}
                                                     className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700"
@@ -313,7 +314,7 @@ const Header = () => {
                                                     <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Admin Panel</Link>
                                                 </>
                                             )}
-                                            <Link to={'/loyalty'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
+                                            <Link to={'/wallet'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
                                             <Link to="/order-details" className="whitespace-nowrap block hover:bg-slate-100 p-2">
                                                 My Orders
                                             </Link>
