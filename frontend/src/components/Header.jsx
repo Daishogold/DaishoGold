@@ -145,7 +145,7 @@ const Header = () => {
                                                     <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                                 </button>
                                                 {productsDropdownOpen && (
-                                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[230px]">
+                                                    <div className="absolute left-1/2 transform -translate-x-1/2 top-full bg-white shadow-lg rounded mt-1 w-[230px] text-center">
                                                         {[
                                                             'Honda CD 70',
                                                             'Honda GD 110',
@@ -171,6 +171,7 @@ const Header = () => {
                                                     </div>
                                                 )}
                                             </div>
+
                                             {!productsDropdownOpen && (
                                                 <>
                                                     <div className="relative">
@@ -222,7 +223,7 @@ const Header = () => {
                                                 </div>
                                                 <button
                                                     onClick={() => { handleLogout(); handleMenuClick(); }}
-                                                    className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700"
+                                                    className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700 text-center"
                                                 >
                                                     Logout
                                                 </button>
@@ -231,7 +232,7 @@ const Header = () => {
                                             <Link
                                                 to="/login"
                                                 onClick={handleMenuClick}
-                                                className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700"
+                                                className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700 text-center"
                                             >
                                                 Login
                                             </Link>
