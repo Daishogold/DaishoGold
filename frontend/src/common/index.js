@@ -97,10 +97,19 @@ const SummaryApi = {
         url: `${backendDomin}/api/filter-product`,
         method: "post"
     },
-    order: {
+    placeOrder: {
         url: `${backendDomin}/api/orders`,
         method: "post"
     },
+    Get_all_orders: {
+        url: `${backendDomin}/api/admin/orders`,
+        method: 'get',
+    },
+    Get_user_orders: {
+        url: `${backendDomin}/api/user/orders/:userId`,
+        method: 'get',
+    },
+
 }
 
 export default SummaryApi

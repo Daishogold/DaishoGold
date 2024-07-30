@@ -4,6 +4,7 @@ import Context from '../context';
 import displayCurrency from '../helpers/displayCurrency';
 import { useSelector } from 'react-redux';
 import { MdDelete } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const [data, setData] = useState([]);
@@ -19,10 +20,11 @@ const Cart = () => {
         postalCode: '',
         countryCode: '',
         country: '',
-        paymentMethod: ''
+        paymentMethod: 'cash'
     });
     const context = useContext(Context);
     const loadingCart = new Array(4).fill(null);
+    const navigate = useNavigate();
 
     const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
     const rates = useSelector(state => state.currency.rates);
@@ -161,9 +163,43 @@ const Cart = () => {
 
     const handlePayment = async (e) => {
         e.preventDefault();
-        // Handle form submission and proceed to payment
-        console.log(formData);
-        // You can replace the console.log with actual submission logic
+        try {
+            const orderData = {
+                ...formData,
+                products: data.map(item => ({
+                    productId: item.productId._id,
+                    quantity: item.quantity,
+                    sellingPrice: item.productId.sellingPrice
+                })),
+                totalPrice,
+                shippingCharges,
+                totalAmount: totalPrice + shippingCharges
+            };
+
+            const response = await fetch(SummaryApi.placeOrder.url, {
+                method: SummaryApi.placeOrder.method,
+                credentials: 'include',
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            });
+
+            const responseData = await response.json();
+
+            if (responseData.success) {
+                // Clear cart and redirect to success page
+                await fetchData();
+                context.fetchUserAddToCart();
+                navigate('/success');
+            } else {
+                console.error('Failed to place order:', responseData.message);
+                // Show an error message to the user
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+            // Show an error message to the user
+        }
     };
 
     return (

@@ -27,6 +27,9 @@ const resetPasswordController = require('../controller/user/resetPassowrd')
 const getProductsByBrand = require('../controller/product/getProductByBrand')
 const orderController = require('../controller/order/orderController')
 const googleSignInController = require('../controller/user/googleSignInController')
+const auth = require('../middleware/auth')
+const { getAllOrders, getOrdersByUserId, completeOrder } = require('../controller/order/showOrderController')
+const authMiddleware = require('../middleware/authMiddleware')
 
 router.post("/signup", userSignUpController)
 router.post("/signin", userSignInController)
@@ -60,6 +63,9 @@ router.get("/view-cart-product", authToken, addToCartViewPeoduct)
 router.post("/update-cart-product", authToken, updateAddToCartProduct)
 
 //order
-router.post('/orders', orderController)
+router.post('/orders', auth, orderController)
+router.get('/admin/orders', authMiddleware, getAllOrders);
+router.get('/user/orders/:userId', authMiddleware, getOrdersByUserId);
+
 
 module.exports = router

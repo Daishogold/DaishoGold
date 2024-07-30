@@ -17,6 +17,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <App />
         </RouterProvider>
       </Provider>
-    </GoogleOAuthProvider>;
+    </GoogleOAuthProvider>
   </React.StrictMode>
 )

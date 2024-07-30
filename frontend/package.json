@@ -13,6 +13,7 @@
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.2.6",
     "@stripe/stripe-js": "^4.1.0",
+    "axios": "^1.7.2",
     "framer-motion": "^11.3.18",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",

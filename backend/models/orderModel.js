@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user', // Make sure 'User' matches the name in userSchema
+        required: true
+    },
     name: String,
     email: String,
     phone: String,
@@ -14,15 +19,19 @@ const orderSchema = new mongoose.Schema({
     products: [{
         productId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'product',
+            ref: 'product', // Ensure this matches the productModel name
             required: true
         },
         quantity: Number,
-        price: Number
+        sellingPrice: Number
     }],
     totalPrice: Number,
     shippingCharges: Number,
-    totalAmount: Number
+    totalAmount: Number,
+    status: {
+        type: String,
+        default: 'Pending'
+    }
 }, {
     timestamps: true
 });

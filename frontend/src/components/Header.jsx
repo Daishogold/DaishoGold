@@ -213,12 +213,20 @@ const Header = () => {
                                         </nav>
 
                                         {user?._id ? (
-                                            <button
-                                                onClick={() => { handleLogout(); handleMenuClick(); }}
-                                                className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700"
-                                            >
-                                                Logout
-                                            </button>
+                                            <>
+                                                <Link to={'/loyalty'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
+                                                <Link to="/order-details" className="whitespace-nowrap block hover:bg-slate-100 p-2">
+                                                    My Orders
+                                                </Link>
+
+                                                <button
+                                                    onClick={() => { handleLogout(); handleMenuClick(); }}
+                                                    className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700"
+                                                >
+                                                    Logout
+                                                </button>
+                                            </>
+
                                         ) : (
                                             <Link
                                                 to="/login"
@@ -301,10 +309,15 @@ const Header = () => {
                                     <div className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded'>
                                         <nav>
                                             {user?.role === ROLE.ADMIN && (
-                                                <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Admin Panel</Link>
+                                                <>
+                                                    <Link to={"/admin-panel/dashboard"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Admin Panel</Link>
+                                                </>
                                             )}
-                                            <Link to={'/order'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Order Details</Link>
                                             <Link to={'/loyalty'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
+                                            <Link to="/order-details" className="whitespace-nowrap block hover:bg-slate-100 p-2">
+                                                My Orders
+                                            </Link>
+
                                         </nav>
                                     </div>
                                 )}

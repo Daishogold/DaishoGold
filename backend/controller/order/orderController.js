@@ -1,5 +1,5 @@
 const orderModel = require('../../models/orderModel');
-const productModel = require('../../models/productModel');
+const addToCartModel = require('../../models/cartProduct'); // Make sure this matches your actual model file name
 
 const orderController = async (req, res) => {
     try {
@@ -20,7 +20,17 @@ const orderController = async (req, res) => {
             totalAmount
         } = req.body;
 
+        // Ensure user is authenticated
+        if (!req.userId) {
+            return res.status(401).json({
+                message: 'User not authenticated',
+                error: true,
+                success: false
+            });
+        }
+
         const newOrder = new orderModel({
+            userId: req.userId, // Use req.userId instead of req.user._id
             name,
             email,
             phone,
@@ -39,6 +49,9 @@ const orderController = async (req, res) => {
 
         await newOrder.save();
 
+        // Remove items from cart
+        await addToCartModel.deleteMany({ userId: req.userId });
+
         res.json({
             message: 'Order placed successfully',
             success: true,
@@ -47,8 +60,9 @@ const orderController = async (req, res) => {
         });
 
     } catch (error) {
+        console.error('Order placement error:', error);
         res.status(400).json({
-            message: error.message || error,
+            message: error.message || 'An error occurred while placing the order',
             error: true,
             success: false
         });

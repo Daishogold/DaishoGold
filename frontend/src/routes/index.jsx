@@ -25,6 +25,8 @@ import WarrantyInformation from '../pages/WarrantyInformation';
 import TrackYourOrder from '../pages/TrackYourOrder';
 import ProductsByBrand from '../components/ProductsByBrand';
 import SuccessPage from '../pages/SuccessPage';
+import AdminOrderDetails from '../pages/AdminOrderDetails';
+import OrderDetails from '../pages/OrderDetails';
 
 const router = createBrowserRouter([
     {
@@ -112,6 +114,10 @@ const router = createBrowserRouter([
                 element: <TrackYourOrder />
             },
             {
+                path: 'order-details',
+                element: <OrderDetails />,
+            },
+            {
                 path: 'admin-panel',
                 element: <AdminPanel />,
                 children: [
@@ -126,9 +132,14 @@ const router = createBrowserRouter([
                     {
                         path: "all-products",
                         element: <AllProducts />
-                    }
+                    },
+                    {
+                        path: 'orders',
+                        element: <AdminOrderDetails />,
+                    },
                 ]
             }
+
         ]
     },
     {
