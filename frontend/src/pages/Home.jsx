@@ -5,6 +5,7 @@ import CategoryList from "../components/CategoryList";
 import VerticalCardProduct from "../components/VerticalCardProduct";
 import BikeList from "../components/BikeList";
 import { MdOutlineKeyboardDoubleArrowUp, MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
+import WhatsAppButton from '../components/whatsapp';
 
 const Home = () => {
     const allCards = [
@@ -81,6 +82,7 @@ const Home = () => {
                     )}
                 </button>
             </div>
+            <WhatsAppButton />
         </div>
     );
 };

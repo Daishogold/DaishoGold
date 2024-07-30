@@ -131,11 +131,10 @@ const Header = () => {
                                 <GrMenu />
                             </button>
 
-
                             {hamburgerMenuOpen && (
                                 <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
                                     <div className="flex flex-col items-center">
-                                        <nav className="w-full">
+                                        <nav className="w-full flex flex-col items-center">
                                             <Link to="/" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Home</Link>
                                             <div className="relative">
                                                 <button
@@ -143,21 +142,32 @@ const Header = () => {
                                                     onClick={() => setProductsDropdownOpen(prev => !prev)}
                                                 >
                                                     Products
-                                                    <GrDown className={`transition - transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
+                                                    <GrDown className={`transition-transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                                 </button>
                                                 {productsDropdownOpen && (
-                                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-full">
-                                                        <Link to={`/products-by-brand?brandName=Honda%20CD%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                                        <Link to={`/products-by-brand?brandName=Honda%20GD%20110`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                                        <Link to={`/products-by-brand?brandName=Suzuki%20GS%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                                        <Link to={`/products-by-brand?brandName=Yamaha%20YBR`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                                        <Link to={`/products-by-brand?brandName=Honda%20CB%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                                        <Link to={`/products-by-brand?brandName=Honda%20H125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                                        <Link to={`/products-by-brand?brandName=Honda%20Deluxe%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                                        <Link to={`/products-by-brand?brandName=Jialing%20JH%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                                        <Link to={`/products-by-brand?brandName=Honda%20CG%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
-                                                        <Link to={`/products-by-brand?brandName=Harley%Davidson%X440`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Harley Davidson X440</Link>
-                                                        <Link to={`/products-by-brand?brandName=Royal%Enfield%Hunter%350`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Royal Enfield Hunter 350</Link>
+                                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[230px]">
+                                                        {[
+                                                            'Honda CD 70',
+                                                            'Honda GD 110',
+                                                            'Suzuki GS 150',
+                                                            'Yamaha YBR',
+                                                            'Honda CB 150',
+                                                            'Honda H125',
+                                                            'Honda Deluxe 125',
+                                                            'Jialing JH 70',
+                                                            'Honda CG 125',
+                                                            'Harley Davidson X440',
+                                                            'Royal Enfield Hunter 350'
+                                                        ].map((brand) => (
+                                                            <Link
+                                                                to={`/products-by-brand?brandName=${encodeURIComponent(brand)}`}
+                                                                onClick={handleProductClick}
+                                                                className="block py-2 px-4 hover:bg-gray-100"
+                                                                key={brand}
+                                                            >
+                                                                {brand}
+                                                            </Link>
+                                                        ))}
                                                     </div>
                                                 )}
                                             </div>
@@ -169,37 +179,27 @@ const Header = () => {
                                                             className="py-2 px-4 w-full text-left flex items-center justify-between hover:bg-gray-100"
                                                         >
                                                             {selectedCurrency}
-                                                            <FaChevronDown size={15} className={`ml - 2 transition-transform duration-200 ${currencyDropdownOpen ? 'rotate-180' : ''}`} />
+                                                            <FaChevronDown size={15} className={`ml-2 transition-transform duration-200 ${currencyDropdownOpen ? 'rotate-180' : ''}`} />
                                                         </button>
                                                         {currencyDropdownOpen && (
                                                             <div className="absolute right-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg">
                                                                 <ul className="py-1">
-                                                                    <li>
-                                                                        <button onClick={() => handleCurrencyChange('PKR')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                            PKR
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button onClick={() => handleCurrencyChange('USD')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                            USD
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button onClick={() => handleCurrencyChange('EUR')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                            EUR
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button onClick={() => handleCurrencyChange('GBP')} className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-                                                                            GBP
-                                                                        </button>
-                                                                    </li>
+                                                                    {['PKR', 'USD', 'EUR', 'GBP'].map((currency) => (
+                                                                        <li key={currency}>
+                                                                            <button
+                                                                                onClick={() => handleCurrencyChange(currency)}
+                                                                                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
+                                                                            >
+                                                                                {currency}
+                                                                            </button>
+                                                                        </li>
+                                                                    ))}
                                                                 </ul>
                                                             </div>
                                                         )}
                                                     </div>
                                                     {!currencyDropdownOpen && user?._id && (
-                                                        <div className="relative mt-4 right-40 flex items-center justify-center">
+                                                        <div className="relative mt-4 flex items-center justify-center">
                                                             <Link to="/cart" className="relative" onClick={handleMenuClick}>
                                                                 <FaShoppingCart size={24} />
                                                                 <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
@@ -214,7 +214,7 @@ const Header = () => {
 
                                         {user?._id ? (
                                             <>
-                                                <div className="flex flex-col items-end space-y-2">
+                                                <div className="flex flex-col items-center space-y-2 mt-4">
                                                     <Link to={'/wallet'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
                                                     <Link to="/order-details" className="whitespace-nowrap block hover:bg-slate-100 p-2">
                                                         My Orders
@@ -227,7 +227,6 @@ const Header = () => {
                                                     Logout
                                                 </button>
                                             </>
-
                                         ) : (
                                             <Link
                                                 to="/login"
@@ -237,11 +236,11 @@ const Header = () => {
                                                 Login
                                             </Link>
                                         )}
-
                                     </div>
                                 </div>
                             )}
                         </div>
+
 
                         {/* Desktop Menu */}
                         <div className="hidden lg:flex items-center space-x-4 mx-auto">
@@ -255,20 +254,30 @@ const Header = () => {
                                     <GrDown className={`transition - transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 {productsDropdownOpen && (
-                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[210px]">
-                                        <Link to={`/products-by-brand?brandName=Honda%20CD%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CD 70</Link>
-                                        <Link to={`/products-by-brand?brandName=Honda%20GD%20110`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda GD 110</Link>
-                                        <Link to={`/products-by-brand?brandName=Suzuki%20GS%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Suzuki GS 150</Link>
-                                        <Link to={`/products-by-brand?brandName=Yamaha%20YBR`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Yamaha YBR</Link>
-                                        <Link to={`/products-by-brand?brandName=Honda%20CB%20150`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CB 150</Link>
-                                        <Link to={`/products-by-brand?brandName=Honda%20H125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda H125</Link>
-                                        <Link to={`/products-by-brand?brandName=Honda%20Deluxe%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda Deluxe 125</Link>
-                                        <Link to={`/products-by-brand?brandName=Jialing%20JH%2070`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Jialing JH 70</Link>
-                                        <Link to={`/products-by-brand?brandName=Honda%20CG%20125`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Honda CG 125</Link>
-                                        <Link to={`/products-by-brand?brandName=Harley%Davidson%X440`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Harley Davidson X440</Link>
-                                        <Link to={`/products-by-brand?brandName=Royal%Enfield%Hunter%350`} onClick={handleProductClick} className="block py-2 px-4 hover:bg-gray-100">Royal Enfield Hunter 350</Link>
+                                    <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[230px]">
+                                        {[
+                                            'Honda CD 70',
+                                            'Honda GD 110',
+                                            'Suzuki GS 150',
+                                            'Yamaha YBR',
+                                            'Honda CB 150',
+                                            'Honda H125',
+                                            'Honda Deluxe 125',
+                                            'Jialing JH 70',
+                                            'Honda CG 125',
+                                            'Harley Davidson X440',
+                                            'Royal Enfield Hunter 350'
+                                        ].map((brand) => (
+                                            <Link
+                                                to={`/products-by-brand?brandName=${encodeURIComponent(brand)}`}
+                                                onClick={handleProductClick}
+                                                className="block py-2 px-4 hover:bg-gray-100"
+                                                key={brand}
+                                            >
+                                                {brand}
+                                            </Link>
+                                        ))}
                                     </div>
-
                                 )}
                             </div>
                             <Link to="/about" onClick={scrollToTop} className="hover:text-red-600">About Us</Link>

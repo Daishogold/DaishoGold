@@ -44,11 +44,11 @@ const OrderDetails = () => {
     }, [user]);
 
     return (
-        <div className="container mx-auto p-6 max-h-screen overflow-y-auto mb-10 mt-10">
-            <h2 className="text-3xl font-bold mb-8 text-center text-gray-900">Order Details</h2>
+        <div className="container mx-auto p-4 md:p-6 max-h-screen overflow-y-auto mb-10 mt-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center text-gray-900">Order Details</h2>
             {orders.map((order) => (
-                <div key={order._id} className="mb-8 p-6 border border-gray-200 rounded-lg shadow-lg bg-white">
-                    <h3 className="text-2xl font-semibold mb-2 text-blue-700">Order ID: {order._id}</h3>
+                <div key={order._id} className="mb-6 md:mb-8 p-4 md:p-6 border border-gray-200 rounded-lg shadow-lg bg-white">
+                    <h3 className="text-lg md:text-2xl font-semibold mb-2 text-blue-700">Order ID: {order._id}</h3>
                     <p className="text-gray-700 mb-2"><strong>Status:</strong>
                         <span className={`inline-block px-2 py-1 rounded ${order.status === 'Pending' ? 'bg-yellow-200 text-yellow-800' : order.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
                             {order.status}
@@ -56,12 +56,12 @@ const OrderDetails = () => {
                     </p>
                     <p className="text-gray-700 mb-2"><strong>Total Amount:</strong> {displayPrice(order.totalAmount)}</p>
                     <p className="text-gray-700 mb-4"><strong>Payment Method:</strong> {order.paymentMethod}</p>
-                    <h4 className="text-xl font-semibold mb-3 text-gray-800">Products:</h4>
+                    <h4 className="text-lg md:text-xl font-semibold mb-3 text-gray-800">Products:</h4>
                     <ul className="space-y-4">
                         {order.products.map((product) => (
-                            <li key={product.productId._id} className="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg shadow-sm">
+                            <li key={product.productId._id} className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-4 bg-gray-50 p-4 rounded-lg shadow-sm">
                                 {product.productId.productImage.length > 0 && (
-                                    <img src={product.productId.productImage[0]} alt={product.productId.productName} className="w-20 h-20 object-cover rounded-lg mix-blend-multiply" />
+                                    <img src={product.productId.productImage[0]} alt={product.productId.productName} className="w-full md:w-20 h-20 object-cover rounded-lg mix-blend-multiply" />
                                 )}
                                 <div className="flex flex-col">
                                     <span className="font-medium text-gray-800"><strong>Product:</strong> {product.productId.productName}</span>
@@ -73,6 +73,7 @@ const OrderDetails = () => {
                 </div>
             ))}
         </div>
+
 
     );
 };

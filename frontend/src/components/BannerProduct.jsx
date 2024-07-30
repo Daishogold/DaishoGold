@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import img1 from '../assets/banner/poster.webp';
 import img2 from '../assets/banner/poster 2.webp';
+import img3 from '../assets/banner/poster 3.png';
 
 import { FaAngleRight } from "react-icons/fa6";
 import { FaAngleLeft } from "react-icons/fa6";
@@ -11,6 +12,7 @@ const BannerProduct = () => {
     const Images = [
         img1,
         img2,
+        img3
     ];
 
     const nextImage = () => {
