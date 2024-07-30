@@ -109,6 +109,14 @@ const SummaryApi = {
         url: `${backendDomin}/api/user/orders/:userId`,
         method: 'get',
     },
+    userWallet: {
+        url: `${backendDomin}/api/wallet`,
+        method: 'get',
+    },
+    adminWallet: {
+        url: `${backendDomin}/api/admin/wallets`,
+        method: 'get',
+    },
 
 }
 

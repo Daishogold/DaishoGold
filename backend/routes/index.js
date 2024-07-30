@@ -30,6 +30,9 @@ const googleSignInController = require('../controller/user/googleSignInControlle
 const auth = require('../middleware/auth')
 const { getAllOrders, getOrdersByUserId, completeOrder } = require('../controller/order/showOrderController')
 const authMiddleware = require('../middleware/authMiddleware')
+const { getUserWallet } = require('../controller/order/walletController')
+const walletMiddleware = require('../middleware/walletmiddleware')
+const { getAllWallets } = require('../controller/order/adminWallet')
 
 router.post("/signup", userSignUpController)
 router.post("/signin", userSignInController)
@@ -66,6 +69,9 @@ router.post("/update-cart-product", authToken, updateAddToCartProduct)
 router.post('/orders', auth, orderController)
 router.get('/admin/orders', authMiddleware, getAllOrders);
 router.get('/user/orders/:userId', authMiddleware, getOrdersByUserId);
+
+router.get('/wallet', walletMiddleware, getUserWallet);
+router.get('/admin/wallets', getAllWallets);
 
 
 module.exports = router
