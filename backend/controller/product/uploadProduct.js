@@ -9,7 +9,7 @@ async function UploadProductController(req, res) {
             throw new Error("Permission Denied!");
         }
 
-        const { productName } = req.body;
+        const { productName, category, customCategory } = req.body;
 
         // Check if product already exists
         const existingProduct = await productModel.findOne({ productName });
@@ -21,8 +21,16 @@ async function UploadProductController(req, res) {
             });
         }
 
-        const UploadProduct = new productModel(req.body);
-        const saveProduct = await UploadProduct.save();
+        // Use custom category if provided
+        const finalCategory = category === "custom" ? customCategory : category;
+
+        const newProductData = {
+            ...req.body,
+            category: finalCategory
+        };
+
+        const uploadProduct = new productModel(newProductData);
+        const saveProduct = await uploadProduct.save();
 
         res.status(201).json({
             message: "Product Uploaded Successfully!",

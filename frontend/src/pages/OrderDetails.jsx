@@ -5,16 +5,12 @@ import axios from 'axios';
 import SummaryApi from '../common';
 import displayCurrency from '../helpers/displayCurrency';
 import moment from 'moment';
-import { FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa'; // Importing icons
-
-const generateRandomId = () => {
-    return 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-};
+import { FaCheck } from 'react-icons/fa';
 
 const OrderDetails = () => {
     const user = useSelector((state) => state.user.user);
     const [orders, setOrders] = useState([]);
-    const [sortOrder, setSortOrder] = useState('newest'); // 'newest' or 'oldest'
+    const [sortOrder, setSortOrder] = useState('newest');
     const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
     const rates = useSelector(state => state.currency.rates);
     const defaultCurrency = 'PKR';
@@ -57,11 +53,12 @@ const OrderDetails = () => {
         }
     }, [user, sortOrder]);
 
+    const statusOptions = ['Received', 'Pending', 'Transit', 'Delivered'];
+
     return (
         <div className="container mx-auto p-4 md:p-6 max-h-screen overflow-y-auto mb-10 mt-10 bg-gray-100">
             <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center text-gray-900">Order Details</h2>
 
-            {/* Sorting Filter */}
             <div className="mb-4 flex items-center justify-between">
                 <label htmlFor="sortOrder" className="text-gray-700 font-medium mb-2">Sort By Date:</label>
                 <select
@@ -70,20 +67,31 @@ const OrderDetails = () => {
                     onChange={(e) => setSortOrder(e.target.value)}
                     className="border border-gray-300 rounded-lg p-2 flex items-center"
                 >
-                    <option value="newest">Newest First <FaSortAmountDown className="inline-block ml-2 text-blue-600" /></option>
-                    <option value="oldest">Oldest First <FaSortAmountUp className="inline-block ml-2 text-red-600" /></option>
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
                 </select>
             </div>
 
             {orders.map((order) => (
                 <div key={order._id} className="mb-6 md:mb-8 p-4 md:p-6 border border-gray-300 rounded-lg shadow-lg bg-white">
-                    <h3 className="text-lg md:text-2xl font-semibold mb-2 text-blue-800">Order ID: {generateRandomId()}</h3>
-                    <p className="text-gray-700 mb-2">
-                        <strong>Status:</strong>
-                        <span className={`inline-block px-2 py-1 rounded ${order.status === 'Pending' ? 'bg-yellow-300 text-yellow-800' : order.status === 'Completed' ? 'bg-green-300 text-green-800' : 'bg-red-300 text-red-800'}`}>
-                            {order.status}
-                        </span>
-                    </p>
+                    <h3 className="text-lg md:text-2xl font-semibold mb-2 text-blue-800">Order ID: {order._id}</h3>
+                    <p className="text-gray-700 mb-2"><strong>Status:</strong></p>
+                    <div className="flex items-center space-x-2 mb-2">
+                        {statusOptions.map((status, index) => (
+                            <span
+                                key={status}
+                                className={`px-2 py-1 rounded flex items-center space-x-1 ${order.status === status
+                                    ? 'bg-green-500 text-white'
+                                    : index <= statusOptions.indexOf(order.status)
+                                        ? 'bg-green-200 text-green-800'
+                                        : 'bg-gray-200 text-gray-800'
+                                    }`}
+                            >
+                                {(index < statusOptions.indexOf(order.status) || (order.status === 'Delivered' && status === 'Delivered')) && <FaCheck />}
+                                <span>{status}</span>
+                            </span>
+                        ))}
+                    </div>
                     <p className="text-gray-700 mb-2"><strong>Total Amount:</strong> {displayPrice(order.totalAmount)}</p>
                     <p className="text-gray-700 mb-4"><strong>Payment Method:</strong> {order.paymentMethod}</p>
                     <p className="text-gray-700 mb-4"><strong>Order Date:</strong> {moment(order.createdAt).format('MMMM D, YYYY [at] h:mm A')}</p>

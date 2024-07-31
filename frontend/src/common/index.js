@@ -109,6 +109,10 @@ const SummaryApi = {
         url: `${backendDomin}/api/user/orders/:userId`,
         method: 'get',
     },
+    Update_order_status: {
+        url: `${backendDomin}/api/orders/update-status`,
+        method: 'put'
+    },
     userWallet: {
         url: `${backendDomin}/api/wallet`,
         method: 'get',

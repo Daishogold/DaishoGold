@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 // Sample bike names array
 const bikes = [
     "Honda CD 70",
-    "Honda GD 110",
+    "Suzuki GD 110",
     "Suzuki GS 150",
     "Yamaha YBR",
     "Honda CB 150",
@@ -29,6 +29,7 @@ const UploadProduct = ({ onClose, fetchData }) => {
         productName: "",
         brandName: "",
         category: "",
+        customCategory: "",
         productImage: [],
         description: "",
         price: "",
@@ -74,13 +75,18 @@ const UploadProduct = ({ onClose, fetchData }) => {
         e.preventDefault();
 
         try {
+            const finalData = {
+                ...data,
+                category: data.category === "custom" ? data.customCategory : data.category
+            };
+
             const response = await fetch(SummaryApi.uploadProduct.url, {
                 method: SummaryApi.uploadProduct.method,
                 credentials: 'include',
                 headers: {
                     "content-type": "application/json"
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(finalData)
             });
 
             const responseData = await response.json();
@@ -151,7 +157,20 @@ const UploadProduct = ({ onClose, fetchData }) => {
                                 {el.label}
                             </option>
                         ))}
+                        <option value="custom">Custom Category</option>
                     </select>
+
+                    {data.category === "custom" && (
+                        <input
+                            type="text"
+                            placeholder="Enter Custom Category"
+                            name="customCategory"
+                            value={data.customCategory}
+                            onChange={handleOnChange}
+                            className="mt-2 p-2 bg-slate-100 border rounded"
+                            required
+                        />
+                    )}
 
                     <label htmlFor="productImage" className='mt-3'>Product Image:</label>
                     <label htmlFor='uploadImageInput'>

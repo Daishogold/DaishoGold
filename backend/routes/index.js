@@ -28,7 +28,8 @@ const getProductsByBrand = require('../controller/product/getProductByBrand')
 const orderController = require('../controller/order/orderController')
 const googleSignInController = require('../controller/user/googleSignInController')
 const auth = require('../middleware/auth')
-const { getAllOrders, getOrdersByUserId, completeOrder } = require('../controller/order/showOrderController')
+const { getAllOrders, getOrdersByUserId } = require('../controller/order/showOrderController')
+const { updateOrderStatus } = require('../controller/order/updateStatus')
 const authMiddleware = require('../middleware/authMiddleware')
 const { getUserWallet } = require('../controller/order/walletController')
 const walletMiddleware = require('../middleware/walletmiddleware')
@@ -68,6 +69,9 @@ router.post("/update-cart-product", authToken, updateAddToCartProduct)
 //order
 router.post('/orders', auth, orderController)
 router.get('/admin/orders', authMiddleware, getAllOrders);
+router.put('/orders/update-status', updateOrderStatus);
+
+
 router.get('/user/orders/:userId', authMiddleware, getOrdersByUserId);
 
 router.get('/wallet', walletMiddleware, getUserWallet);

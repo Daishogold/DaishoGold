@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import img1 from '../assets/bikes/CD70Blue-01.png';
 import img2 from '../assets/bikes/GD 110.png';
 import img3 from '../assets/bikes/GS 150.png';
@@ -21,20 +23,37 @@ const products = [
     { id: 7, name: "Honda Deluxe 125", image: img7 },
     { id: 8, name: "Jialing JH 70", image: img8 },
     { id: 9, name: "Honda CG 125", image: img9 },
-    { id: 9, name: "Harley Davidson X440", image: img10 },
-    { id: 9, name: "Royal Enfield Hunter 350", image: img11 },
+    { id: 10, name: "Harley Davidson X440", image: img10 },
+    { id: 11, name: "Royal Enfield Hunter 350", image: img11 },
 ];
 
 const BikeList = () => {
     const navigate = useNavigate();
+    const scrollRef = useRef(null);
 
     const handleClick = (brandName) => {
         navigate(`/products-by-brand?brandName=${encodeURIComponent(brandName)}`);
     };
 
+    const scrollLeft = () => {
+        scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    };
+
+    const scrollRight = () => {
+        scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    };
+
     return (
-        <div className="container mx-auto p-4">
-            <div className="flex items-center gap-4 justify-between overflow-scroll scrollbar-none">
+        <div className="relative container mx-auto p-4">
+            <div
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10"
+                onClick={scrollLeft}
+            >
+                <div className="bg-white rounded-full p-2 shadow-md cursor-pointer">
+                    <FaArrowLeft className="text-2xl text-gray-600 hover:text-gray-800" />
+                </div>
+            </div>
+            <div ref={scrollRef} className="flex items-center gap-4 justify-between overflow-scroll scrollbar-none">
                 {products.map((bike) => (
                     <div
                         key={bike.id}
@@ -51,6 +70,14 @@ const BikeList = () => {
                         <p className="text-center text-sm md:text-base capitalize line-clamp-1">{bike.name}</p>
                     </div>
                 ))}
+            </div>
+            <div
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10"
+                onClick={scrollRight}
+            >
+                <div className="bg-white rounded-full p-2 shadow-md cursor-pointer">
+                    <FaArrowRight className="text-2xl text-gray-600 hover:text-gray-800" />
+                </div>
             </div>
         </div>
     );

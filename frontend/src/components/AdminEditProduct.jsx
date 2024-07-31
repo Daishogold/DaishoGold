@@ -9,6 +9,21 @@ import { MdDelete } from 'react-icons/md';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify'
 
+// Sample bike names array
+const bikes = [
+    "Honda CD 70",
+    "Suzuki GD 110",
+    "Suzuki GS 150",
+    "Yamaha YBR",
+    "Honda CB 150",
+    "Honda H125",
+    "Honda Deluxe 125",
+    "Jialing JH 70",
+    "Honda CG 125",
+    "Harley Davidson X440",
+    "Royal Enfield Hunter 350"
+];
+
 const AdminEditProduct = ({
     onClose,
     productData,
@@ -105,30 +120,33 @@ const AdminEditProduct = ({
                     </div>
                 </div>
 
-
                 <form className='grid p-4 gap-3 overflow-y-scroll h-full pb-5' onSubmit={handleSubmit}>
                     <label htmlFor="productName">Product Name:</label>
                     <input type="text" id='productName' placeholder='Enter Product Name' name='productName' value={data.productName} onChange={handleOnChange} className='p-2 bg-slate-100 border rounded' required />
 
                     <label htmlFor="brandName" className='mt-3'>Brand Name:</label>
-                    <input type="text" id='brandName' placeholder='Enter Brand Name' name='brandName' value={data.brandName} onChange={handleOnChange} className='p-2 bg-slate-100 border rounded' required />
+                    <select
+                        id='brandName'
+                        name='brandName'
+                        value={data.brandName}
+                        onChange={handleOnChange}
+                        className='p-2 bg-slate-100 border rounded'
+                        required
+                    >
+                        <option value="">Select Brand</option>
+                        {bikes.map((bike, index) => (
+                            <option key={index} value={bike}>{bike}</option>
+                        ))}
+                    </select>
 
                     <label htmlFor="category" className='mt-3'>Category:</label>
                     <select value={data.category} name='category' onChange={handleOnChange} className='p-2 bg-slate-100 border rounded' required>
-
-                        <option value={""}>
-                            Select Category
-                        </option>
-
-                        {
-                            productCategory.map((el, index) => {
-                                return (
-                                    <option value={el.value} key={el.value + index}>
-                                        {el.label}
-                                    </option>
-                                )
-                            })
-                        }
+                        <option value={""}>Select Category</option>
+                        {productCategory.map((el, index) => (
+                            <option value={el.value} key={el.value + index}>
+                                {el.label}
+                            </option>
+                        ))}
                     </select>
 
                     <label htmlFor="productImage" className='mt-3'>Product Image:</label>
@@ -143,38 +161,32 @@ const AdminEditProduct = ({
                     </label>
 
                     <div>
-                        {
-                            data?.productImage[0] ? (
-                                <div className='flex items-center gap-2'>
-                                    {
-                                        data.productImage.map((el, index) => {
-                                            return (
-                                                <div key={index} className='relative group'>
-                                                    <img src={el} alt={el} width={80} height={80} className='bg-slate-100 border cursor-pointer' onClick={() => {
-                                                        setOpenFullScreenImage(true)
-                                                        setFullScreenImage(el)
-                                                    }} />
+                        {data.productImage.length > 0 ? (
+                            <div className='flex items-center gap-2'>
+                                {data.productImage.map((el, index) => (
+                                    <div key={index} className='relative group'>
+                                        <img src={el} alt={el} width={80} height={80} className='bg-slate-100 border cursor-pointer' onClick={() => {
+                                            setOpenFullScreenImage(true)
+                                            setFullScreenImage(el)
+                                        }} />
 
-                                                    <div className='absolute bottom-0 right-0 p-1 text-white bg-red-600 rounded-full hidden group-hover:block cursor-pointer' onClick={() => handleDeleteProductImage(index)}>
-                                                        <MdDelete />
-                                                    </div>
+                                        <div className='absolute bottom-0 right-0 p-1 text-white bg-red-600 rounded-full hidden group-hover:block cursor-pointer' onClick={() => handleDeleteProductImage(index)}>
+                                            <MdDelete />
+                                        </div>
 
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            ) : (
-                                <p className='text-red-600 text-xs'>*Please upload product image</p>
-                            )
-                        }
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className='text-red-600 text-xs'>*Please upload product image</p>
+                        )}
                     </div>
 
                     <label htmlFor='price' className='mt-3'>Price :</label>
                     <input
                         type='number'
                         id='price'
-                        placeholder='enter price'
+                        placeholder='Enter Price'
                         value={data.price}
                         name='price'
                         onChange={handleOnChange}
@@ -189,22 +201,15 @@ const AdminEditProduct = ({
                     <label htmlFor="description" className='mt-3'>Description:</label>
                     <textarea rows={3} onChange={handleOnChange} name='description' value={data.description} className='h-28 bg-slate-100 border resize-none p-1' placeholder='Enter Product Description'></textarea>
 
-
-
                     <button className='px-3 py-2 bg-red-600  text-white mb-10 hover:bg-red-700'>Update Product</button>
 
                 </form>
 
             </div >
 
-            {/** Display image full scree */}
-            {
-                openFullScreenImage && (
-                    <DisplayImage onClose={() => setOpenFullScreenImage(false)} imgUrl={fullScreenImage} />
-                )
-            }
-
-
+            {openFullScreenImage && (
+                <DisplayImage onClose={() => setOpenFullScreenImage(false)} imgUrl={fullScreenImage} />
+            )}
         </div >
     )
 }
@@ -212,7 +217,7 @@ const AdminEditProduct = ({
 AdminEditProduct.propTypes = {
     onClose: PropTypes.func,
     fetchdata: PropTypes.func,
-    productData: PropTypes.string,
+    productData: PropTypes.object.isRequired,
 };
 
-export default AdminEditProduct
+export default AdminEditProduct;

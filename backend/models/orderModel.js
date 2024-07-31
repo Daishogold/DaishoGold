@@ -38,12 +38,17 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'Pending'
-    }
+        enum: ['Received', 'Pending', 'Transit', 'Delivered'],
+        default: 'Received'
+    },
+    statusHistory: [{
+        status: String,
+        timestamp: Date
+    }]
 }, {
     timestamps: true
 });
 
-const orderModel = mongoose.model("order", orderSchema);
+const Order = mongoose.model("order", orderSchema);
 
-module.exports = orderModel;
+module.exports = Order;
