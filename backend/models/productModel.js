@@ -4,7 +4,7 @@ const productSchema = new mongoose.Schema({
     productName: String,
     brandName: String,
     category: String,
-    productImage: [String], // Change to array of strings to store image URLs
+    productImage: [String],
     description: String,
     price: Number,
     sellingPrice: Number

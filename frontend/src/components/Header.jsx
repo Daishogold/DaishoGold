@@ -102,11 +102,10 @@ const Header = () => {
         <header className="h-18 shadow-md bg-white fixed w-full z-40">
             <div className="h-full container mx-auto flex items-center px-4 justify-between">
                 <div className="flex items-center justify-center">
-                    <Link to="/" onClick={scrollToTop}>
-                        <img src={Logo} alt="logo" className="w-24 h-20 object-contain" />
+                    <Link to="/" onClick={scrollToTop} className="flex flex-col items-center space-y-1">
+                        <img src={Logo} alt="logo" className="mb-2 w-24 h-20 object-contain hover:scale-105 transition-transform duration-300 ease-in-out" />
                     </Link>
                 </div>
-
 
                 {!isAdminPanel && (
                     <>
@@ -135,7 +134,7 @@ const Header = () => {
                                 <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
                                     <div className="flex flex-col items-center">
                                         <nav className="w-full flex flex-col items-center">
-                                            <Link to="/" onClick={handleMenuClick} className="block py-2 px-4 hover:bg-gray-100">Home</Link>
+                                            <Link to="/" onClick={() => { handleMenuClick(); setHamburgerMenuOpen(false); }} className="block py-2 px-4 hover:bg-gray-100">Home</Link>
                                             <div className="relative">
                                                 <button
                                                     className="flex items-center justify-between w-full py-2 px-4 hover:bg-gray-100 text-left"
@@ -148,7 +147,7 @@ const Header = () => {
                                                     <div className="absolute left-1/2 transform -translate-x-1/2 top-full bg-white shadow-lg rounded mt-1 w-[230px] text-center">
                                                         {[
                                                             'Honda CD 70',
-                                                            'Honda GD 110',
+                                                            'Suzuki GD 110',
                                                             'Suzuki GS 150',
                                                             'Yamaha YBR',
                                                             'Honda CB 150',
@@ -161,7 +160,7 @@ const Header = () => {
                                                         ].map((brand) => (
                                                             <Link
                                                                 to={`/products-by-brand?brandName=${encodeURIComponent(brand)}`}
-                                                                onClick={handleProductClick}
+                                                                onClick={() => { handleProductClick(); setHamburgerMenuOpen(false); }}
                                                                 className="block py-2 px-4 hover:bg-gray-100"
                                                                 key={brand}
                                                             >
@@ -188,7 +187,7 @@ const Header = () => {
                                                                     {['PKR', 'USD', 'EUR', 'GBP'].map((currency) => (
                                                                         <li key={currency}>
                                                                             <button
-                                                                                onClick={() => handleCurrencyChange(currency)}
+                                                                                onClick={() => { handleCurrencyChange(currency); setHamburgerMenuOpen(false); }}
                                                                                 className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
                                                                             >
                                                                                 {currency}
@@ -201,7 +200,7 @@ const Header = () => {
                                                     </div>
                                                     {!currencyDropdownOpen && user?._id && (
                                                         <div className="relative mt-4 flex items-center justify-center">
-                                                            <Link to="/cart" className="relative" onClick={handleMenuClick}>
+                                                            <Link to="/cart" className="relative" onClick={() => { handleMenuClick(); setHamburgerMenuOpen(false); }}>
                                                                 <FaShoppingCart size={24} />
                                                                 <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
                                                                     <p className="text-sm">{context?.cartProductCount}</p>
@@ -216,13 +215,13 @@ const Header = () => {
                                         {user?._id ? (
                                             <>
                                                 <div className="flex flex-col items-center space-y-2 mt-4">
-                                                    <Link to={'/wallet'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => setMenuDisplay(prev => !prev)}>Loyalty Wallet</Link>
-                                                    <Link to="/order-details" className="whitespace-nowrap block hover:bg-slate-100 p-2">
+                                                    <Link to={'/wallet'} className='whitespace-nowrap block hover:bg-slate-100 p-2' onClick={() => { setMenuDisplay(prev => !prev); setHamburgerMenuOpen(false); }}>Loyalty Wallet</Link>
+                                                    <Link to="/order-details" className="whitespace-nowrap block hover:bg-slate-100 p-2" onClick={() => setHamburgerMenuOpen(false)}>
                                                         My Orders
                                                     </Link>
                                                 </div>
                                                 <button
-                                                    onClick={() => { handleLogout(); handleMenuClick(); }}
+                                                    onClick={() => { handleLogout(); handleMenuClick(); setHamburgerMenuOpen(false); }}
                                                     className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700 text-center"
                                                 >
                                                     Logout
@@ -231,7 +230,7 @@ const Header = () => {
                                         ) : (
                                             <Link
                                                 to="/login"
-                                                onClick={handleMenuClick}
+                                                onClick={() => { handleMenuClick(); setHamburgerMenuOpen(false); }}
                                                 className="w-full mt-4 px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700 text-center"
                                             >
                                                 Login
@@ -252,13 +251,13 @@ const Header = () => {
                                     onClick={() => setProductsDropdownOpen(prev => !prev)}
                                 >
                                     Products
-                                    <GrDown className={`transition - transform duration-200 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
+                                    <GrDown className={`transition - transform duration-200 ml-2 ${productsDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
                                 {productsDropdownOpen && (
                                     <div className="absolute left-0 top-full bg-white shadow-lg rounded mt-1 w-[230px]">
                                         {[
                                             'Honda CD 70',
-                                            'Honda GD 110',
+                                            'Suzuki GD 110',
                                             'Suzuki GS 150',
                                             'Yamaha YBR',
                                             'Honda CB 150',

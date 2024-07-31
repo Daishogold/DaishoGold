@@ -10,12 +10,20 @@ const AllProducts = () => {
     const [openUploadProduct, setOpenUploadProduct] = useState(false);
     const [allProduct, setAllProduct] = useState([]);
     const [sorted, setSorted] = useState(false);
+    const [loading, setLoading] = useState(true); // Add loading state
     const selectedCategory = useSelector(state => state.category.selectedCategory);
 
     const fetchAllProduct = async () => {
-        const response = await fetch(SummaryApi.allProduct.url);
-        const dataResponse = await response.json();
-        setAllProduct(dataResponse?.data || []);
+        setLoading(true); // Set loading to true when starting to fetch
+        try {
+            const response = await fetch(SummaryApi.allProduct.url);
+            const dataResponse = await response.json();
+            setAllProduct(dataResponse?.data || []);
+        } catch (error) {
+            console.error('Failed to fetch products', error);
+        } finally {
+            setLoading(false); // Set loading to false after fetching is done
+        }
     };
 
     useEffect(() => {
@@ -40,7 +48,7 @@ const AllProducts = () => {
 
     return (
         <div>
-            <div className='bg-white py-2 px-4 flex justify-between items-center'>
+            <div className='bg-white py-2 px-4 flex justify-between items-center mt-5'>
                 <h2 className='font-bold text-lg'>All Products ({filteredProducts.length})</h2>
                 <div className='flex gap-4'>
                     <button
@@ -63,15 +71,20 @@ const AllProducts = () => {
                 Filter By Category -  <CategoryFilter />
             </div>
 
-            <div className='flex items-center flex-wrap gap-5 py-4 h-[calc(100vh-190px)] overflow-y-scroll'>
-                {
-                    filteredProducts.map((product, index) => {
-                        return (
-                            <AdminProductCard data={product} key={index + "allProduct"} fetchdata={fetchAllProduct} />
-                        )
-                    })
-                }
-            </div>
+            {loading ? (
+                <div className="flex flex-col justify-center items-center h-[calc(100vh-190px)]">
+                    <div className="relative w-16 h-16 mb-4">
+                        <div className="absolute w-16 h-16 border-4 border-blue-500 border-solid rounded-full border-t-transparent animate-spin"></div>
+                    </div>
+                    <p className="text-lg text-gray-600">Loading Products...</p>
+                </div>
+            ) : (
+                <div className='flex items-center flex-wrap gap-5 py-4 h-[calc(100vh-190px)] overflow-y-scroll'>
+                    {filteredProducts.map((product, index) => (
+                        <AdminProductCard data={product} key={index + "allProduct"} fetchdata={fetchAllProduct} />
+                    ))}
+                </div>
+            )}
 
             {openUploadProduct && (
                 <UploadProduct onClose={() => setOpenUploadProduct(false)} fetchData={fetchAllProduct} />

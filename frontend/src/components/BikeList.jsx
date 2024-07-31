@@ -13,7 +13,7 @@ import img11 from '../assets/bikes/Royal Enfield Hunter 350.webp';
 
 const products = [
     { id: 1, name: "Honda CD 70", image: img1 },
-    { id: 2, name: "Honda GD 110", image: img2 },
+    { id: 2, name: "Suzuki GD 110", image: img2 },
     { id: 3, name: "Suzuki GS 150", image: img3 },
     { id: 4, name: "Yamaha YBR", image: img4 },
     { id: 5, name: "Honda CB 150", image: img5 },

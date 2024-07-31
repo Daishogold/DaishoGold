@@ -53,7 +53,16 @@ function App() {
         fetchUserAddToCart
       }}>
         <ToastContainer
-          position='top-center'
+          position="top-center"
+          autoClose={2000} // 2 seconds
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
         />
 
         <Header />

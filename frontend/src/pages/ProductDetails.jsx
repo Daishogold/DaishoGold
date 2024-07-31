@@ -110,8 +110,14 @@ const ProductDetails = () => {
 
     }
 
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
+
     return (
-        <div className='container mx-auto p-4'>
+        <div className='container mx-auto p-4 mt-6'>
 
             <div className='min-h-[200px] flex flex-col lg:flex-row gap-4'>
                 {/***product Image */}
@@ -224,10 +230,19 @@ const ProductDetails = () => {
                                     <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px] font-medium text-white bg-red-600 hover:text-red-600 hover:bg-white' onClick={(e) => handleAddToCart(e, data?._id)}>Add To Cart</button>
                                 </div>
 
-                                <div>
-                                    <p className='text-slate-600 font-medium my-1'>Description : </p>
-                                    <p>{data?.description}</p>
+                                <div className='p-4 bg-gray-50 rounded-lg shadow-sm'>
+                                    <p className='text-slate-800 font-semibold text-lg mb-2'>Description:</p>
+                                    <p className={`text-slate-600 leading-relaxed ${isExpanded ? 'block' : 'line-clamp-3'}`}>
+                                        {data?.description}
+                                    </p>
+                                    <button
+                                        onClick={toggleExpand}
+                                        className='text-blue-600 hover:underline mt-2'
+                                    >
+                                        {isExpanded ? 'See Less' : 'See More'}
+                                    </button>
                                 </div>
+
                             </div>
                         )
                 }

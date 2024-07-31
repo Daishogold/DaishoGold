@@ -29,6 +29,7 @@ import AdminOrderDetails from '../pages/AdminOrderDetails';
 import OrderDetails from '../pages/OrderDetails';
 import Wallet from '../pages/Wallet';
 import AdminLoyalty from '../pages/AdminLoyalty';
+import CancelPage from '../pages/CancelPage';
 
 const router = createBrowserRouter([
     {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
             {
                 path: 'success',
                 element: <SuccessPage />
+            },
+            {
+                path: 'cancel',
+                element: <CancelPage />
             },
             {
                 path: 'search',

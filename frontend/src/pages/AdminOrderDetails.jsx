@@ -12,7 +12,8 @@ const generateRandomId = () => {
 
 const AdminOrderDetails = () => {
     const [orders, setOrders] = useState([]);
-    const [sortOrder, setSortOrder] = useState('newest'); // State for sorting
+    const [sortOrder, setSortOrder] = useState('newest');
+    const [loading, setLoading] = useState(true); // Add loading state
     const selectedCurrency = useSelector(state => state.currency.selectedCurrency);
     const rates = useSelector(state => state.currency.rates);
     const defaultCurrency = 'PKR';
@@ -37,6 +38,7 @@ const AdminOrderDetails = () => {
 
     useEffect(() => {
         const fetchOrders = async () => {
+            setLoading(true); // Set loading to true when starting to fetch
             try {
                 console.log("Fetching all orders");
                 const { data } = await axios.get(SummaryApi.Get_all_orders.url, {
@@ -54,6 +56,8 @@ const AdminOrderDetails = () => {
             } catch (error) {
                 console.error('Failed to fetch orders:', error.response ? error.response.data : error.message);
                 toast.error('Failed to fetch orders');
+            } finally {
+                setLoading(false); // Set loading to false after fetching is done
             }
         };
         fetchOrders();
@@ -61,46 +65,57 @@ const AdminOrderDetails = () => {
 
     return (
         <div className="container mx-auto p-4 max-h-screen overflow-y-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800">All Orders</h2>
-
-            <div className="mb-4 flex justify-end">
-                <select
-                    value={sortOrder}
-                    onChange={(e) => setSortOrder(e.target.value)}
-                    className="p-2 border rounded"
-                >
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                </select>
-            </div>
-
-            {orders.map((order) => (
-                <div key={order._id} className="mb-6 p-4 md:p-6 border border-gray-200 rounded-lg shadow-lg bg-white">
-                    <h3 className="text-lg md:text-xl font-semibold mb-2 text-blue-600">Order ID: {generateRandomId()}</h3>
-                    <p className="mb-2"><strong>User:</strong> {order.userId?.name} ({order.userId?.email})</p>
-                    <p className="mb-2"><strong>Status:</strong> <span className={`inline-block px-2 py-1 rounded ${order.status === 'Pending' ? 'bg-yellow-200 text-yellow-800' : order.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>{order.status}</span></p>
-                    <p className="mb-2"><strong>Total Amount:</strong> {displayPrice(order.totalAmount)}</p>
-                    <p className="mb-2"><strong>Payment Method:</strong> {order.paymentMethod}</p>
-                    <p className="mb-2"><strong>Order Date:</strong> {moment(order.createdAt).format('MMMM D, YYYY [at] h:mm A')}</p> {/* Displaying the order date */}
-                    <p className="mb-4"><strong>Shipping Address:</strong> {order.shippingAddress}</p>
-                    <h4 className="text-md md:text-lg font-semibold mb-2 text-gray-700">Products:</h4>
-                    <ul className="space-y-4">
-                        {order.products.map((product) => (
-                            <li key={product.productId._id} className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-4 bg-gray-50 p-4 rounded-lg shadow">
-                                {product.productId.productImage.length > 0 && (
-                                    <img src={product.productId.productImage[0]} alt={product.productId.productName} className="w-full md:w-16 h-16 object-cover rounded mix-blend-multiply" />
-                                )}
-                                <div>
-                                    <span className="block font-medium text-gray-800"><strong>Product:</strong> {product.productId.productName}</span>
-                                    <span className="block text-gray-600"><strong>Brand:</strong> {product.productId.brandName}</span>
-                                    <span className="block text-gray-600"><strong>Quantity:</strong> {product.quantity}</span>
-                                    <span className="block text-gray-600"><strong>Selling Price:</strong> {displayPrice(product.sellingPrice)}</span>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+            {loading ? (
+                <div className="flex flex-col justify-center items-center h-[calc(100vh-190px)]">
+                    <div className="relative w-16 h-16 mb-4">
+                        <div className="absolute w-16 h-16 border-4 border-blue-500 border-solid rounded-full border-t-transparent animate-spin"></div>
+                    </div>
+                    <p className="text-lg text-gray-600">Loading Orders...</p>
                 </div>
-            ))}
+            ) : (
+                <>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800">All Orders</h2>
+
+                    <div className="mb-4 flex justify-end">
+                        <select
+                            value={sortOrder}
+                            onChange={(e) => setSortOrder(e.target.value)}
+                            className="p-2 border rounded"
+                        >
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                        </select>
+                    </div>
+
+                    {orders.map((order) => (
+                        <div key={order._id} className="mb-6 p-4 md:p-6 border border-gray-200 rounded-lg shadow-lg bg-white">
+                            <h3 className="text-lg md:text-xl font-semibold mb-2 text-blue-600">Order ID: {generateRandomId()}</h3>
+                            <p className="mb-2"><strong>User:</strong> {order.userId?.name} ({order.userId?.email})</p>
+                            <p className="mb-2"><strong>Status:</strong> <span className={`inline-block px-2 py-1 rounded ${order.status === 'Pending' ? 'bg-yellow-200 text-yellow-800' : order.status === 'Completed' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>{order.status}</span></p>
+                            <p className="mb-2"><strong>Total Amount:</strong> {displayPrice(order.totalAmount)}</p>
+                            <p className="mb-2"><strong>Payment Method:</strong> {order.paymentMethod}</p>
+                            <p className="mb-2"><strong>Order Date:</strong> {moment(order.createdAt).format('MMMM D, YYYY [at] h:mm A')}</p>
+                            <p className="mb-4"><strong>Shipping Address:</strong> {order.shippingAddress}</p>
+                            <h4 className="text-md md:text-lg font-semibold mb-2 text-gray-700">Products:</h4>
+                            <ul className="space-y-4">
+                                {order.products.map((product) => (
+                                    <li key={product.productId._id} className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-4 bg-gray-50 p-4 rounded-lg shadow">
+                                        {product.productId.productImage.length > 0 && (
+                                            <img src={product.productId.productImage[0]} alt={product.productId.productName} className="w-full md:w-16 h-16 object-cover rounded mix-blend-multiply" />
+                                        )}
+                                        <div>
+                                            <span className="block font-medium text-gray-800"><strong>Product:</strong> {product.productId.productName}</span>
+                                            <span className="block text-gray-600"><strong>Brand:</strong> {product.productId.brandName}</span>
+                                            <span className="block text-gray-600"><strong>Quantity:</strong> {product.quantity}</span>
+                                            <span className="block text-gray-600"><strong>Selling Price:</strong> {displayPrice(product.sellingPrice)}</span>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </>
+            )}
         </div>
     );
 };

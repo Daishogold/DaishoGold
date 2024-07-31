@@ -5,6 +5,7 @@ import displayCurrency from '../helpers/displayCurrency';
 import { useSelector } from 'react-redux';
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import countryCodes from '../helpers/countryCodes';
 
 const Cart = () => {
     const [data, setData] = useState([]);
@@ -163,42 +164,47 @@ const Cart = () => {
 
     const handlePayment = async (e) => {
         e.preventDefault();
-        try {
-            const orderData = {
-                ...formData,
-                products: data.map(item => ({
-                    productId: item.productId._id,
-                    quantity: item.quantity,
-                    sellingPrice: item.productId.sellingPrice
-                })),
-                totalPrice,
-                shippingCharges,
-                totalAmount: totalPrice + shippingCharges
-            };
 
-            const response = await fetch(SummaryApi.placeOrder.url, {
-                method: SummaryApi.placeOrder.method,
-                credentials: 'include',
-                headers: {
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            });
+        if (formData.paymentMethod === 'card') {
+            navigate('/cancel');
+        } else {
+            try {
+                const orderData = {
+                    ...formData,
+                    products: data.map(item => ({
+                        productId: item.productId._id,
+                        quantity: item.quantity,
+                        sellingPrice: item.productId.sellingPrice
+                    })),
+                    totalPrice,
+                    shippingCharges,
+                    totalAmount: totalPrice + shippingCharges
+                };
 
-            const responseData = await response.json();
+                const response = await fetch(SummaryApi.placeOrder.url, {
+                    method: SummaryApi.placeOrder.method,
+                    credentials: 'include',
+                    headers: {
+                        "Content-Type": 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
 
-            if (responseData.success) {
-                // Clear cart and redirect to success page
-                await fetchData();
-                context.fetchUserAddToCart();
-                navigate('/success');
-            } else {
-                console.error('Failed to place order:', responseData.message);
+                const responseData = await response.json();
+
+                if (responseData.success) {
+                    // Clear cart and redirect to success page
+                    await fetchData();
+                    context.fetchUserAddToCart();
+                    navigate('/success');
+                } else {
+                    console.error('Failed to place order:', responseData.message);
+                    // Show an error message to the user
+                }
+            } catch (error) {
+                console.error('Error placing order:', error);
                 // Show an error message to the user
             }
-        } catch (error) {
-            console.error('Error placing order:', error);
-            // Show an error message to the user
         }
     };
 
@@ -270,7 +276,7 @@ const Cart = () => {
                                             <p>Shipping Charges</p>
                                             <p>{displayPrice(shippingCharges)}</p>
                                         </div>
-                                        <button className='bg-blue-600 p-2 text-white w-full mt-2' onClick={() => setShowForm(true)}>Check Out</button>
+                                        <button className='bg-gray-600 p-2 text-white w-full mt-2' onClick={() => setShowForm(true)}>Check Out</button>
                                     </div>
                                 )
                             }
@@ -286,40 +292,48 @@ const Cart = () => {
                         <h2 className='text-xl font-bold mb-4'>Checkout</h2>
                         <form onSubmit={handlePayment} className='space-y-4'>
                             {/* Contact Information */}
-                            <div className='mb-4'>
-                                <label className='block text-sm font-medium text-gray-700 mb-1'>Contact Information</label>
-                                <div className='flex flex-col md:flex-row gap-4'>
+                            <div className='mb-8'>
+                                <label className='block text-lg font-medium text-gray-800 mb-4'>Contact Information</label>
+                                <div className='flex flex-col md:flex-row gap-6'>
                                     <div className='flex-1'>
-                                        <label className='block text-sm font-medium text-gray-700 mb-1'>Country Code</label>
-                                        <input
-                                            type='text'
+                                        <label className='block text-sm font-medium text-gray-700 mb-2'>Country Code</label>
+                                        <select
                                             name='countryCode'
                                             value={formData.countryCode}
                                             onChange={handleInputChange}
-                                            className='w-full p-2 border border-gray-300 rounded'
+                                            className='w-full p-2 border border-gray-300 rounded bg-white text-gray-700'
                                             required
-                                        />
+                                        >
+                                            <option value="">Select Country Code</option>
+                                            {countryCodes.map((country, index) => (
+                                                <option key={index} value={country.code}>
+                                                    {country.code}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                     <div className='flex-1'>
-                                        <label className='block text-sm font-medium text-gray-700 mb-1'>Phone Number</label>
+                                        <label className='block text-sm font-medium text-gray-700 mb-2'>Phone Number</label>
                                         <input
                                             type='tel'
                                             name='phone'
                                             value={formData.phone}
                                             onChange={handleInputChange}
-                                            className='w-full p-2 border border-gray-300 rounded'
+                                            className='w-full p-2 border border-gray-300 rounded text-gray-700'
+                                            placeholder="Enter your phone number"
                                             required
                                         />
                                     </div>
                                 </div>
-                                <div className='mt-4'>
-                                    <label className='block text-sm font-medium text-gray-700 mb-1'>Country</label>
+                                <div className='mt-6'>
+                                    <label className='block text-sm font-medium text-gray-700 mb-2'>Country</label>
                                     <input
                                         type='text'
                                         name='country'
                                         value={formData.country}
                                         onChange={handleInputChange}
-                                        className='w-full p-2 border border-gray-300 rounded'
+                                        className='w-full p-2 border border-gray-300 rounded text-gray-700'
+                                        placeholder="Enter your country"
                                         required
                                     />
                                 </div>
@@ -407,6 +421,7 @@ const Cart = () => {
                                     required
                                 >
                                     <option value='cash'>Cash on Delivery</option>
+                                    <option value='card'>Card</option>
                                 </select>
                             </div>
 
@@ -438,7 +453,7 @@ const Cart = () => {
                             </div>
                             <button
                                 type='submit'
-                                className='bg-blue-600 text-white p-2 rounded w-full mt-4'
+                                className='bg-gray-600 text-white p-2 rounded w-full mt-4'
                             >
                                 Proceed to Payment
                             </button>
@@ -453,8 +468,6 @@ const Cart = () => {
                     </div>
                 </div>
             )}
-
-
         </div>
     );
 };

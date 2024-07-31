@@ -1,4 +1,3 @@
-// src/components/Login.js
 import { useContext, useState } from 'react';
 import loginIcons from '../assets/signin.gif';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -76,8 +75,8 @@ const Login = () => {
 
     return (
         <section id='login'>
-            <div className='mx-auto container p-4'>
-                <div className='bg-white p-5 w-full max-w-sm mx-auto'>
+            <div className='mx-auto container p-4 bg-white mt-6 mb-6 bg-cover bg-center'>
+                <div className='bg-gray-100 p-5 w-full max-w-sm mx-auto'>
                     <div className='w-20 h-20 mx-auto'>
                         <img src={loginIcons} alt='login icons' />
                     </div>
@@ -85,10 +84,10 @@ const Login = () => {
                     <form className='pt-6 flex flex-col gap-4 items-center' onSubmit={handleSubmit}>
                         <div className='grid w-full'>
                             <label>Email : </label>
-                            <div className='bg-slate-100 p-2'>
+                            <div className='bg-white p-2'>
                                 <input
                                     type='email'
-                                    placeholder='enter email'
+                                    placeholder='Enter Email'
                                     name='email'
                                     value={data.email}
                                     onChange={handleOnChange}
@@ -98,10 +97,10 @@ const Login = () => {
 
                         <div className='w-full'>
                             <label>Password : </label>
-                            <div className='bg-slate-100 p-2 flex'>
+                            <div className='bg-white p-2 flex'>
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    placeholder='enter password'
+                                    placeholder='Enter Password'
                                     value={data.password}
                                     name='password'
                                     onChange={handleOnChange}
