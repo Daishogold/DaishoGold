@@ -99,7 +99,7 @@ const CategoryProduct = () => {
     }, [sortBy])
 
     return (
-        <div className='container mx-auto p-4'>
+        <div className='container mx-auto p-4 mt-6'>
             <div className='flex flex-col lg:flex-row'>
                 {/* Toggle Button for Mobile */}
                 <button
