@@ -1,5 +1,7 @@
 import { FaUsers, FaBoxOpen, FaDollarSign, FaEye } from 'react-icons/fa';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
+import { useEffect, useState } from 'react';
+import SummaryApi from '../common'
 
 const salesData = [
     { month: 'Jan', sales: 4000, visits: 2400 },
@@ -17,6 +19,39 @@ const salesData = [
 ];
 
 const Dashboard = () => {
+    const [totalUsers, setTotalUsers] = useState(0);
+    const [totalProducts, setTotalProducts] = useState(0);
+
+    useEffect(() => {
+        const fetchTotalUsers = async () => {
+            try {
+                const response = await fetch(SummaryApi.allUser.url, {
+                    method: SummaryApi.allUser.method,
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                if (data.success) {
+                    setTotalUsers(data.data.length);
+                }
+            } catch (error) {
+                console.error('Failed to fetch users', error);
+            }
+        };
+
+        const fetchTotalProducts = async () => {
+            try {
+                const response = await fetch(SummaryApi.allProduct.url);
+                const data = await response.json();
+                setTotalProducts(data?.data?.length || 0);
+            } catch (error) {
+                console.error('Failed to fetch products', error);
+            }
+        };
+
+        fetchTotalUsers();
+        fetchTotalProducts();
+    }, []);
+
     return (
         <div className="container mx-auto p-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -31,14 +66,14 @@ const Dashboard = () => {
                     <FaUsers className="text-4xl text-blue-600" />
                     <div className="ml-4">
                         <p className="text-gray-600">Total Users</p>
-                        <h3 className="text-2xl font-bold">1,234</h3>
+                        <h3 className="text-2xl font-bold">{totalUsers}</h3>
                     </div>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">
                     <FaBoxOpen className="text-4xl text-yellow-600" />
                     <div className="ml-4">
                         <p className="text-gray-600">Total Products</p>
-                        <h3 className="text-2xl font-bold">567</h3>
+                        <h3 className="text-2xl font-bold">{totalProducts}</h3>
                     </div>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg p-6 flex items-center">

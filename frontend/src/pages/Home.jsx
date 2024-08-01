@@ -9,14 +9,14 @@ import WhatsAppButton from '../components/whatsapp';
 
 const Home = () => {
     const allCards = [
-        { category: "Air Filters & Intakes", heading: "Best Air Filters & Intakes", type: "horizontal" },
-        { category: "Bearings", heading: "Top's Bearings", type: "horizontal" },
+        { category: "Carburetors", heading: "Carburetors", type: "horizontal" },
+        { category: "Engine Parts", heading: "Engine Parts", type: "horizontal" },
+        { category: "Control Cables", heading: "Control Cables", type: "horizontal" },
+        { category: "Air Filters & Intakes", heading: "Best Air Filters & Intakes", type: "vertical" },
+        { category: "Bearings", heading: "Top's Bearings", type: "vertical" },
         { category: "Body Parts", heading: "Body Parts", type: "vertical" },
         { category: "Battery", heading: "Battery", type: "vertical" },
         { category: "Brakes", heading: "Brakes", type: "vertical" },
-        { category: "Carburetors", heading: "Carburetors", type: "vertical" },
-        { category: "Control Cables", heading: "Control Cables", type: "vertical" },
-        { category: "Engine Parts", heading: "Engine Parts", type: "vertical" },
         { category: "Electrical Parts", heading: "Electrical Parts", type: "vertical" },
         { category: "Jumps & Shocks", heading: "Jumps & Shocks", type: "vertical" },
         { category: "Lubricants", heading: "Lubricants", type: "vertical" },
