@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import BannerProduct from "../components/BannerProduct";
 import CategoryList from "../components/CategoryList";
-// import HorizontalCardProduct from "../components/HorizontalCardProduct";
 import VerticalCardProduct from "../components/VerticalCardProduct";
 import BikeList from "../components/BikeList";
 import { MdOutlineKeyboardDoubleArrowUp, MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import WhatsAppButton from '../components/whatsapp';
+import img from '../assets/banner/Poster4.png';
 
 const Home = () => {
     const allCards = [
@@ -47,6 +47,10 @@ const Home = () => {
             <CategoryList />
             <BannerProduct />
             <BikeList />
+
+            <div className="flex justify-center my-6">
+                <img src={img} className="w-full h-auto object-cover rounded-lg shadow-md" alt="Banner" />
+            </div>
 
             {displayedCards.map((card, index) => (
                 card.type === "horizontal" ? (
