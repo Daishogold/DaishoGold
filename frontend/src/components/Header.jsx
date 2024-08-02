@@ -125,7 +125,7 @@ const Header = () => {
                                 </div>
                                 {user?._id && (
                                     <Link to="/cart" className="relative flex items-center text-2xl" onClick={scrollToTop}>
-                                        <FaShoppingCart />
+                                        <FaShoppingCart size={18} />
                                         <div className="bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3">
                                             <p className="text-sm">{context?.cartProductCount}</p>
                                         </div>
