@@ -2,7 +2,7 @@ import img1 from '../assets/banner/poster.png';
 
 const Newsletter = () => {
     return (
-        <section id="newsletter" className="relative p-4 py-40 flex justify-center z-10">
+        <section id="newsletter" className="relative p-4 py-40 flex justify-center z-10 mt-6">
             <div className="absolute z-[1] w-full h-full top-0 left-0 bg-gray-900 opacity-75" />
             <img src={img1} alt="Newsletter Background" className="absolute z-[2] w-full h-full top-0 left-0 object-cover object-center opacity-30" />
             <form className="container px-0 flex justify-center items-center relative z-[3] w-full text-center flex-col gap-2 text-white">

@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import countryCodes from '../helpers/countryCodes';
+import { toast } from 'react-toastify';
+
 
 const Cart = () => {
     const [data, setData] = useState([]);
@@ -127,28 +129,27 @@ const Cart = () => {
     };
 
     const deleteCartProduct = async (id) => {
-        try {
-            const response = await fetch(SummaryApi.deleteCartProduct.url, {
-                method: SummaryApi.deleteCartProduct.method,
-                credentials: 'include',
-                headers: {
-                    "content-type": 'application/json'
-                },
-                body: JSON.stringify({ _id: id })
-            });
+        const response = await fetch(SummaryApi.deleteCartProduct.url, {
+            method: SummaryApi.deleteCartProduct.method,
+            credentials: 'include',
+            headers: {
+                "content-type": 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    _id: id,
+                }
+            )
+        })
 
-            const responseData = await response.json();
+        const responseData = await response.json()
 
-            if (responseData.success) {
-                fetchData();
-                context.fetchUserAddToCart();
-            } else {
-                console.error('Failed to delete product:', responseData.message);
-            }
-        } catch (error) {
-            console.error('Error deleting product:', error);
+        if (responseData.success) {
+            toast.success(responseData.message);
+            fetchData()
+            context.fetchUserAddToCart()
         }
-    };
+    }
 
     const totalQty = data.reduce((previousValue, currentValue) => previousValue + (currentValue.quantity || 0), 0);
     const totalPrice = data.reduce((preve, curr) => preve + (curr.quantity || 0) * (curr?.productId?.sellingPrice || 0), 0);
@@ -210,10 +211,10 @@ const Cart = () => {
 
     return (
         <div className='container mx-auto'>
-            <div className='text-center text-lg my-3'>
+            <div className='text-center text-lg my-3 mt-6'>
                 {
                     data.length === 0 && !loading && (
-                        <p className='bg-white py-5'>No Data</p>
+                        <p className='bg-white py-5'>No Product Found in Cart</p>
                     )
                 }
             </div>
@@ -236,6 +237,7 @@ const Cart = () => {
                                         <div className='absolute right-0 text-red-600 rounded-full p-2 hover:bg-red-600 hover:text-white cursor-pointer' onClick={() => deleteCartProduct(product?._id)}>
                                             <MdDelete />
                                         </div>
+
                                         <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1'>{product?.productId?.productName}</h2>
                                         <p className='capitalize text-slate-500'>{product?.productId?.category || 'No category'}</p>
                                         <div className='flex items-center justify-between'>

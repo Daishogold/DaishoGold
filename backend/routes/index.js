@@ -57,7 +57,7 @@ router.post("/category-product", getCategoryWiseProducts)
 router.post("/product-details", getProductDetails)
 router.get("/search", searchProduct)
 router.post("/filter-product", filterProductController)
-router.delete("/delete-product/:productId", deleteProductController)
+router.post("/delete-cart-product", authToken, deleteAddToCartProduct)
 
 
 //user add to cart
