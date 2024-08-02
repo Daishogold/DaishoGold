@@ -111,33 +111,34 @@ const Header = () => {
                     <>
                         {/* Logo, Search Bar, Cart Icon, and Hamburger Menu */}
                         <div className="flex items-center lg:hidden w-full justify-end">
-                            <div className="flex items-center space-x-4 ml-auto">
+                            <div className="flex items-center space-x-2 ml-auto">
                                 <div className="flex-1">
-                                    <div className="relative mx-auto -ml-4">
+                                    <div className="relative mx-auto">
                                         <input
                                             type="text"
                                             placeholder="Search product here..."
-                                            className="w-[190px] outline-none px-2 py-1 border rounded-full"
+                                            className="w-full max-w-xs sm:max-w-md md:max-w-lg outline-none px-3 py-2 border rounded-full"
                                             onChange={handleSearch}
                                             value={search}
                                         />
                                     </div>
                                 </div>
                                 {user?._id && (
-                                    <Link to={"/cart"} className='text-2xl relative' onClick={scrollToTop} >
-                                        <span><FaShoppingCart /></span>
-                                        <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
-                                            <p className='text-sm'>{context?.cartProductCount}</p>
+                                    <Link to="/cart" className="relative flex items-center text-2xl" onClick={scrollToTop}>
+                                        <FaShoppingCart />
+                                        <div className="bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3">
+                                            <p className="text-sm">{context?.cartProductCount}</p>
                                         </div>
                                     </Link>
                                 )}
                                 <button
-                                    className="text-2xl"
-                                    onClick={() => setHamburgerMenuOpen(prev => !prev)}
+                                    className="text-2xl flex items-center"
+                                    onClick={() => setHamburgerMenuOpen((prev) => !prev)}
                                 >
                                     <GrMenu />
                                 </button>
                             </div>
+
 
                             {hamburgerMenuOpen && (
                                 <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
