@@ -5,7 +5,8 @@ import VerticalCardProduct from "../components/VerticalCardProduct";
 import BikeList from "../components/BikeList";
 import { MdOutlineKeyboardDoubleArrowUp, MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import WhatsAppButton from '../components/whatsapp';
-import img from '../assets/banner/Poster4.png';
+import img1 from '../assets/banner/desktop.png';
+import img2 from '../assets/banner/mobile.png';
 
 const Home = () => {
     const allCards = [
@@ -48,9 +49,8 @@ const Home = () => {
             <BannerProduct />
             <BikeList />
 
-            <div className="flex justify-center my-6">
-                <img src={img} className="w-full h-auto object-cover rounded-lg shadow-md" alt="Banner" />
-            </div>
+            <img src={img1} className="hidden md:block w-full h-auto object-cover rounded-lg shadow-md" alt="Banner" />
+            <img src={img2} className="block md:hidden w-full h-auto object-cover rounded-lg shadow-md" alt="Banner" />
 
             {displayedCards.map((card, index) => (
                 card.type === "horizontal" ? (

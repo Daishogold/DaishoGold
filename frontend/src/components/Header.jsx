@@ -109,26 +109,35 @@ const Header = () => {
 
                 {!isAdminPanel && (
                     <>
-                        {/* Hamburger Menu for Mobile */}
-                        <div className="lg:hidden flex items-center space-x-4 w-full">
-                            <div className="flex-1">
-                                <div className="relative mx-auto mr-3">
-                                    <input
-                                        type="text"
-                                        placeholder="Search product here..."
-                                        className="w-full outline-none px-2 py-1 border rounded-full"
-                                        onChange={handleSearch}
-                                        value={search}
-                                    />
+                        {/* Logo, Search Bar, Cart Icon, and Hamburger Menu */}
+                        <div className="flex items-center lg:hidden w-full justify-end">
+                            <div className="flex items-center space-x-4 ml-auto">
+                                <div className="flex-1">
+                                    <div className="relative mx-auto -ml-4">
+                                        <input
+                                            type="text"
+                                            placeholder="Search product here..."
+                                            className="w-[220px] outline-none px-2 py-1 border rounded-full"
+                                            onChange={handleSearch}
+                                            value={search}
+                                        />
+                                    </div>
                                 </div>
+                                {user?._id && (
+                                    <Link to={"/cart"} className='text-2xl relative' onClick={scrollToTop} >
+                                        <span><FaShoppingCart /></span>
+                                        <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
+                                            <p className='text-sm'>{context?.cartProductCount}</p>
+                                        </div>
+                                    </Link>
+                                )}
+                                <button
+                                    className="text-2xl"
+                                    onClick={() => setHamburgerMenuOpen(prev => !prev)}
+                                >
+                                    <GrMenu />
+                                </button>
                             </div>
-
-                            <button
-                                className="text-2xl ml-3"
-                                onClick={() => setHamburgerMenuOpen(prev => !prev)}
-                            >
-                                <GrMenu />
-                            </button>
 
                             {hamburgerMenuOpen && (
                                 <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
@@ -198,16 +207,6 @@ const Header = () => {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    {!currencyDropdownOpen && user?._id && (
-                                                        <div className="relative mt-4 flex items-center justify-center">
-                                                            <Link to="/cart" className="relative" onClick={() => { handleMenuClick(); setHamburgerMenuOpen(false); }}>
-                                                                <FaShoppingCart size={24} />
-                                                                <div className="absolute -top-4 -right-6 bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center text-xs -translate-x-1/2 translate-y-1/2">
-                                                                    <p className="text-sm">{context?.cartProductCount}</p>
-                                                                </div>
-                                                            </Link>
-                                                        </div>
-                                                    )}
                                                 </>
                                             )}
                                         </nav>
@@ -240,7 +239,6 @@ const Header = () => {
                                 </div>
                             )}
                         </div>
-
 
                         {/* Desktop Menu */}
                         <div className="hidden lg:flex items-center space-x-4 mx-auto">
@@ -418,7 +416,8 @@ const Header = () => {
                 </div>
 
             </div>
-        </header >
+        </header>
+
     );
 };
 

@@ -81,6 +81,7 @@ const Footer = () => {
                 <div className="bg-white text-center py-4">
                     <p>&copy; {new Date().getFullYear()} Daisho Gold. All rights reserved.</p>
                 </div>
+
             </footer>
         </>
     );
