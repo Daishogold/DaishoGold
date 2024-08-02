@@ -117,7 +117,7 @@ const Header = () => {
                                         <input
                                             type="text"
                                             placeholder="Search product here..."
-                                            className="w-[220px] outline-none px-2 py-1 border rounded-full"
+                                            className="w-[190px] outline-none px-2 py-1 border rounded-full"
                                             onChange={handleSearch}
                                             value={search}
                                         />
