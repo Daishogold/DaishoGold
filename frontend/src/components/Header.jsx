@@ -110,41 +110,39 @@ const Header = () => {
                 {!isAdminPanel && (
                     <>
                         {/* Logo, Search Bar, Cart Icon, and Hamburger Menu */}
-                        <div className="flex items-center lg:hidden w-full justify-between">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex-1">
-                                    <div className="relative mx-auto">
-                                        <input
-                                            type="text"
-                                            placeholder="Search product here..."
-                                            className="w-[210px] outline-none px-2 py-1 border rounded-full"
-                                            onChange={handleSearch}
-                                            value={search}
-                                        />
-                                    </div>
-                                </div>
-                                {user?._id && (
-                                    <Link to={"/cart"} className='text-2xl relative' onClick={scrollToTop} >
-                                        <span><FaShoppingCart /></span>
-                                        <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
-                                            <p className='text-sm'>{context?.cartProductCount}</p>
-                                        </div>
-                                    </Link>
-                                )}
-                                <button
-                                    className="text-2xl"
-                                    onClick={() => setHamburgerMenuOpen(prev => !prev)}
-                                    style={{
-                                        position: 'absolute',
-                                        top: '50%',
-                                        right: '1rem', // Adjust this value to your preference
-                                        transform: 'translateY(-50%)'
-                                    }}
-                                >
-                                    <GrMenu />
-                                </button>
+                        <div className="flex items-center w-full justify-between lg:hidden">
+
+                            {/* <!-- Search Bar Section --> */}
+                            <div className="flex-1 mx-4">
+                                <input
+                                    type="text"
+                                    placeholder="Search product here..."
+                                    className="w-full outline-none px-2 py-1 border rounded-full"
+                                    onChange={handleSearch}
+                                    value={search}
+                                />
                             </div>
 
+                            {/* <!-- Cart Icon Section --> */}
+                            {user?._id && (
+                                <Link to={"/cart"} className='text-2xl relative flex items-center' onClick={scrollToTop}>
+                                    <span><FaShoppingCart /></span>
+                                    <div className='bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-3'>
+                                        <p className='text-sm'>{context?.cartProductCount}</p>
+                                    </div>
+                                </Link>
+                            )}
+
+                            {/* <!-- Menu Icon Section --> */}
+                            <button
+                                className="text-2xl ml-4 flex items-center"
+                                onClick={() => setHamburgerMenuOpen(prev => !prev)}
+                                style={{
+                                    position: 'relative'
+                                }}
+                            >
+                                <GrMenu />
+                            </button>
 
                             {hamburgerMenuOpen && (
                                 <div className="absolute top-14 right-0 bg-white shadow-lg rounded p-4 z-50 w-full">
@@ -246,6 +244,8 @@ const Header = () => {
                                 </div>
                             )}
                         </div>
+
+
 
                         {/* Desktop Menu */}
                         <div className="hidden lg:flex items-center space-x-4 mx-auto">
