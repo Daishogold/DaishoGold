@@ -54,15 +54,15 @@ function App() {
       }}>
         <ToastContainer
           position="top-center"
-          autoClose={2000} // 2 seconds
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
+          autoClose={1000} // 2 seconds
+          style={{
+            width: '70%',
+            maxWidth: '400px',
+            margin: '0 auto',
+            left: '50%',
+            top: '30px',
+            transform: 'translateX(-50%)',
+          }}
         />
 
         <Header />
