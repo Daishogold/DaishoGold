@@ -237,7 +237,11 @@ const ProductDetails = () => {
 
             </div>
 
-            <Reviews productId={data._id} />
+            {data._id ? (
+                <Reviews productId={data._id} />
+            ) : (
+                <p>Loading product reviews...</p>
+            )}
 
             {
                 data.category && (

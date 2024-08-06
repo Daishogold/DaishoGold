@@ -16,6 +16,11 @@ const Reviews = ({ productId }) => {
     const userId = currentUser?._id;
 
     useEffect(() => {
+        if (!productId) {
+            console.error('Product ID is undefined');
+            return;
+        }
+
         const fetchReviews = async () => {
             try {
                 setLoading(true);
@@ -30,6 +35,7 @@ const Reviews = ({ productId }) => {
         };
         fetchReviews();
     }, [productId]);
+
 
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
@@ -132,7 +138,7 @@ const Reviews = ({ productId }) => {
 };
 
 Reviews.propTypes = {
-    productId: PropTypes.string.isRequired,
+    productId: PropTypes.string,
 };
 
 export default Reviews;

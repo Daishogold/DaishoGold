@@ -20,15 +20,11 @@ const CategroyWiseProductDisplay = ({ category, heading }) => {
         fetchUserAddToCart()
     }
 
-
-
-
     const fetchData = async () => {
         setLoading(true)
         const categoryProduct = await fetchCategoryWiseProducts(category)
         setLoading(false)
 
-        console.log("horizontal data", categoryProduct.data)
         setData(categoryProduct?.data)
     }
 
