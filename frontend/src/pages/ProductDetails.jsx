@@ -1,13 +1,12 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import SummaryApi from '../common'
-import { FaStar } from "react-icons/fa";
-import { FaStarHalf } from "react-icons/fa";
 import displayCurrency from '../helpers/displayCurrency';
 import CategroyWiseProductDisplay from '../components/CategoryWiseProductDisplay';
 import addToCart from '../helpers/addToCart';
 import Context from '../context';
 import { useSelector } from 'react-redux';
+import Reviews from '../components/Review';
 
 const ProductDetails = () => {
     const [data, setData] = useState({
@@ -69,7 +68,6 @@ const ProductDetails = () => {
 
     }
 
-    console.log("data", data)
 
     useEffect(() => {
         fetchProductDetails()
@@ -82,7 +80,6 @@ const ProductDetails = () => {
     const handleZoomImage = useCallback((e) => {
         setZoomImage(true)
         const { left, top, width, height } = e.target.getBoundingClientRect()
-        console.log("coordinate", left, top, width, height)
 
         const x = (e.clientX - left) / width
         const y = (e.clientY - top) / height
@@ -211,16 +208,8 @@ const ProductDetails = () => {
                             <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productName}</h2>
                             <p className='capitalize text-slate-400'>{data?.category}</p>
 
-                            <div className='text-red-600 flex items-center gap-1'>
-                                <FaStar />
-                                <FaStar />
-                                <FaStar />
-                                <FaStar />
-                                <FaStarHalf />
-                            </div>
-
                             <div className='flex items-center gap-2 text-2xl lg:text-3xl font-medium my-1'>
-                                <p className='text-red-600'>{displayPrice(data.sellingPrice)}</p>
+                                <p className='text-red-600'>{displayPrice(data?.sellingPrice)}</p>
                                 <p className='text-slate-400 line-through'>{displayPrice(data.price)}</p>
                             </div>
 
@@ -248,15 +237,13 @@ const ProductDetails = () => {
 
             </div>
 
-
+            <Reviews productId={data._id} />
 
             {
                 data.category && (
                     <CategroyWiseProductDisplay category={data?.category} heading={"Recommended Product"} />
                 )
             }
-
-
 
 
         </div>

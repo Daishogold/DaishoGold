@@ -34,6 +34,7 @@ const authMiddleware = require('../middleware/authMiddleware')
 const { getUserWallet } = require('../controller/order/walletController')
 const walletMiddleware = require('../middleware/walletmiddleware')
 const { getAllWallets } = require('../controller/order/adminWallet')
+const { addReviewController, getProductReviewsController } = require('../controller/review/reviewController')
 
 router.post("/signup", userSignUpController)
 router.post("/signin", userSignInController)
@@ -76,6 +77,11 @@ router.get('/user/orders/:userId', authMiddleware, getOrdersByUserId);
 
 router.get('/wallet', walletMiddleware, getUserWallet);
 router.get('/admin/wallets', getAllWallets);
+
+
+
+router.post('/add', addReviewController);
+router.get('/:productId', getProductReviewsController);
 
 
 module.exports = router

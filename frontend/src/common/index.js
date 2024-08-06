@@ -121,6 +121,14 @@ const SummaryApi = {
         url: `${backendDomin}/api/admin/wallets`,
         method: 'get',
     },
+    addReview: {
+        url: `${backendDomin}/api/add`,
+        method: 'post',
+    },
+    getReview: {
+        url: `${backendDomin}/api/:productId`,
+        method: 'get',
+    },
 
 }
 
