@@ -59,6 +59,7 @@ const AdminProductCard = ({ data, fetchdata }) => {
                     <img src={data?.productImage[0]} className='mx-auto object-fill h-full' alt={data.productName} />
                 </div>
                 <h1 className='text-ellipsis line-clamp-2'>{data.productName}</h1>
+                <span className='bg-red-200 text-red-600 px-2 rounded-full inline-block w-fit'>{data?.brandName}</span>
                 <div>
                     <p className='font-semibold'>
                         {displayPrice(data.sellingPrice)}
